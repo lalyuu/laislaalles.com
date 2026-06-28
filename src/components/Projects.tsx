@@ -1,0 +1,65 @@
+import Image from "next/image";
+
+export default function Projects() {
+  const projects = [
+    {
+      id: 1,
+      tags: ["Motion Design", "UX Motion", "Motion Branding"],
+      title: "Projeto de animação para a marca Conecta Venda",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      date: "4 de jun. de 2026",
+    },
+    {
+      id: 2,
+      tags: ["Motion Design", "UX Motion", "Motion Branding"],
+      title: "Macro Publicidade - Projeto de animação para a marca Conecta Venda",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      date: "3 de jun. de 2026",
+    },
+  ];
+
+  return (
+    <section id="projetos" className="py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center gap-3">
+          <Image src="/icons/Frame.svg" alt="" width={28} height={28} className="text-accent" />
+          Projetos
+        </h2>
+        <p className="text-muted mb-12 max-w-2xl">
+          Entenda como eu penso, crio e desenvolvo soluções usando a criatividade.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          {projects.map((project) => (
+            <article
+              key={project.id}
+              className="group border border-border rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer"
+            >
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
+                {project.title}
+              </h3>
+              <p className="text-muted text-sm mb-4">{project.description}</p>
+              <time className="text-xs text-muted">{project.date}</time>
+            </article>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <button className="px-8 py-3 border border-border rounded-full text-foreground hover:bg-cta hover:text-white transition-colors">
+            Ver mais
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
