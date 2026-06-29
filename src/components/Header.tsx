@@ -4,8 +4,8 @@ export default function Header() {
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[85%] max-w-5xl bg-[#161a27]/80 backdrop-blur-md rounded-full border border-border shadow-sm">
       <div className="flex items-center justify-between px-6 py-3">
-        <a href="#" className="text-xl font-bold text-foreground">
-          Laísla Alles
+        <a href="#">
+          <img src="/assets/Logo.svg" alt="Laísla Alles" className="h-8 w-auto" />
         </a>
 
         <nav className="hidden md:flex items-center gap-6 px-8 py-2 border border-border rounded-full">
