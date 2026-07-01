@@ -32,7 +32,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-cta text-white text-sm rounded-full hover:bg-cta/90 transition-colors"
               >
-                <Image src="/icons/Download-File.svg" alt="" width={16} height={16} />
+                <Image src="/icons/Download.svg" alt="" width={16} height={16} />
                 Currículo
               </a>
             </div>

@@ -46,7 +46,7 @@ export default function Contact() {
             rel="noopener noreferrer"
             className="px-6 py-3 border border-border text-foreground rounded-full hover:bg-cta hover:text-white transition-colors flex items-center gap-2"
           >
-            <Image src="/icons/Download-File.svg" alt="" width={20} height={20} />
+            <Image src="/icons/Download.svg" alt="" width={20} height={20} />
             Currículo
           </a>
         </div>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const terms = ["Designer Gráfica.", "Motion Designer.", "Editora de Vídeos."];
+const terms = ["Designer Gráfica.", "Motion Designer.", "Editora de Vídeos.","Apaixonada por Jogos.", "Apaixonada por Terror.", "Apaixonada por Gatos."];
 
 export default function Hero() {
   const [currentTermIndex, setCurrentTermIndex] = useState(0);

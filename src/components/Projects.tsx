@@ -33,7 +33,7 @@ export default function Projects() {
           {projects.map((project) => (
             <article
               key={project.id}
-              className="group border border-border rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer"
+              className="group shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer"
             >
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.tags.map((tag) => (

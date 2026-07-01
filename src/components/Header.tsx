@@ -2,13 +2,13 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[85%] max-w-5xl bg-[#161a27]/80 backdrop-blur-md rounded-full border border-border shadow-sm">
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[85%] max-w-5xl bg-[#161a27]/80 backdrop-blur-md rounded-full shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
       <div className="flex items-center justify-between px-6 py-3">
         <a href="#">
           <img src="/assets/Logo.svg" alt="Laísla Alles" className="h-8 w-auto" />
         </a>
 
-        <nav className="hidden md:flex items-center gap-6 px-8 py-2 border border-border rounded-full">
+        <nav className="hidden md:flex items-center gap-6 px-8 py-2 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] rounded-full">
           <a href="#sobre" className="text-sm text-muted hover:text-foreground transition-colors">
             Sobre mim
           </a>
@@ -42,7 +42,7 @@ export default function Header() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 bg-cta text-white text-sm rounded-full hover:bg-cta/90 transition-colors"
           >
-            <Image src="/icons/Download-File.svg" alt="" width={16} height={16} />
+            <Image src="/icons/Download.svg" alt="" width={16} height={16} />
             Currículo
           </a>
         </div>

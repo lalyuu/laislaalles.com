@@ -20,14 +20,22 @@ export default function About() {
     "Rápido aprendizado",
   ];
 
-  return (
-    <section id="sobre" className="py-24 bg-surface">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid md:grid-cols-[auto_1fr] gap-16">
-          <div className="flex items-center justify-center min-h-[400px] w-[320px] bg-accent/10 rounded-2xl overflow-hidden">
-            <Image src="/assets/Foto-perfil.jpg" alt="Foto de perfil da Laísla Alles" width={640} height={800} quality={100} className="w-full h-full object-cover" />
-          </div>
+  const ferramentas = [
+    { nome: "Photoshop", icone: "/icons/Photoshop.svg" },
+    { nome: "Illustrator", icone: "/icons/Illustrator.svg" },
+    { nome: "After Effects", icone: "/icons/After Effects.svg" },
+    { nome: "Premiere", icone: "/icons/Premiere.svg" },
+    { nome: "Bridge", icone: "/icons/Bridge.svg" },
+    { nome: "CapCut", icone: "/icons/CapCut.svg" },
+    { nome: "Figma", icone: "/icons/Figma.svg" },
+    { nome: "Framer", icone: "/icons/Framer.svg" },
+    { nome: "Notion", icone: "/icons/Notion.svg" },
+  ];
 
+  return (
+    <section id="sobre" className="py-24 bg-background">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid md:grid-cols-[1fr_auto] gap-[124px]">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center gap-3">
               <Image src="/icons/User.svg" alt="" width={28} height={28} className="text-accent" />
@@ -54,7 +62,7 @@ export default function About() {
                 rel="noopener noreferrer"
                 className="px-6 py-2 bg-cta text-white rounded-full hover:bg-cta/90 transition-colors flex items-center gap-2"
               >
-                <Image src="/icons/Download-File.svg" alt="" width={18} height={18} />
+                <Image src="/icons/Download.svg" alt="" width={18} height={18} />
                 Currículo
               </a>
               <a
@@ -66,10 +74,31 @@ export default function About() {
               </a>
             </div>
           </div>
+
+          <div className="flex items-center justify-center w-[405px] h-[535px] bg-accent/10 rounded-2xl overflow-hidden shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
+            <Image src="/assets/Foto-perfil.jpg" alt="Foto de perfil da Laísla Alles" width={640} height={800} quality={100} className="w-full h-full object-cover" />
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mt-20 items-stretch">
-          <div className="p-6 bg-surface rounded-2xl border border-border h-full">
+        <div className="mt-20">
+          <h3 className="text-[32px] font-semibold text-foreground mb-6 flex items-center gap-2">
+            <Image src="/icons/Pen-Tool.svg" alt="" width={22} height={22} className="text-accent" />
+            Ferramentas
+          </h3>
+          <div className="p-4 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
+            <div className="flex flex-wrap gap-10 items-center justify-center">
+              {ferramentas.map((ferramenta) => (
+                <div key={ferramenta.nome} className="flex flex-col items-center gap-1">
+                  <Image src={ferramenta.icone} alt={ferramenta.nome} width={48} height={48} className="text-muted" />
+                  <span className="text-xs text-muted">{ferramenta.nome}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 mt-8 items-stretch">
+          <div className="py-8 px-10 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] h-full">
             <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <Image src="/icons/Notebook.svg" alt="" width={22} height={22} className="text-accent" />
               Competências
@@ -83,7 +112,7 @@ export default function About() {
             </ul>
           </div>
 
-          <div className="p-6 bg-surface rounded-2xl border border-border h-full">
+          <div className="py-8 px-10 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] h-full">
             <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <Image src="/icons/Target.svg" alt="" width={22} height={22} className="text-accent" />
               Habilidades pessoais
