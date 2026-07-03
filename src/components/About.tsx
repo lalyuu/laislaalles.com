@@ -80,8 +80,8 @@ export default function About() {
           </div>
         </div>
 
-        <div className="mt-20">
-          <h3 className="text-[32px] font-semibold text-foreground mb-6 flex items-center gap-2">
+        <div className="mt-24">
+          <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
             <Image src="/icons/Pen-Tool.svg" alt="" width={22} height={22} className="text-accent" />
             Ferramentas
           </h3>
@@ -98,32 +98,36 @@ export default function About() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mt-8 items-stretch">
-          <div className="py-8 px-10 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] h-full">
-            <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+          <div className="flex flex-col h-full">
+            <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
               <Image src="/icons/Notebook.svg" alt="" width={22} height={22} className="text-accent" />
               Competências
             </h3>
-            <ul>
-              {competencias.map((item) => (
-                <li key={item} className="text-muted">
-                  <span className="mr-3">•</span>{item}
-                </li>
-              ))}
-            </ul>
+            <div className="py-8 px-10 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
+              <ul>
+                {competencias.map((item) => (
+                  <li key={item} className="text-muted">
+                    <span className="mr-3">•</span>{item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div className="py-8 px-10 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] h-full">
-            <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+          <div className="flex flex-col h-full">
+            <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
               <Image src="/icons/Target.svg" alt="" width={22} height={22} className="text-accent" />
               Habilidades pessoais
             </h3>
-            <ul>
-              {habilidades.map((item) => (
-                <li key={item} className="text-muted">
-                  <span className="mr-3">•</span>{item}
-                </li>
-              ))}
-            </ul>
+            <div className="py-8 px-10 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
+              <ul>
+                {habilidades.map((item) => (
+                  <li key={item} className="text-muted">
+                    <span className="mr-3">•</span>{item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
