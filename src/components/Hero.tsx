@@ -3,7 +3,16 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const terms = ["Designer Gráfica.", "Motion Designer.", "Editora de Vídeos.","Apaixonada por Jogos.", "Apaixonada por Terror.", "Apaixonada por Gatos."];
+const terms = [
+  "Designer Gráfica.", 
+  "Motion Designer.", 
+  "Editora de Vídeos.",
+  "Apaixonada por Jogos.", 
+  "Apaixonada por Terror.", 
+  "Apaixonada por Gatos."
+];
+
+const longestTerm = terms.reduce((a, b) => a.length > b.length ? a : b, "");
 
 export default function Hero() {
   const [currentTermIndex, setCurrentTermIndex] = useState(0);
@@ -36,13 +45,54 @@ export default function Hero() {
   }, [currentText, isDeleting, currentTermIndex]);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center pt-20">
-      <div className="max-w-6xl mx-auto px-6 text-left">
+    <section className="min-h-screen flex flex-col items-center justify-center pt-20 relative overflow-hidden">
+      <div 
+        className="absolute top-0 left-0 w-full h-[150%] opacity-[0.017] pointer-events-none"
+        aria-hidden="true"
+      >
+        <Image 
+          src="/icons/Logo-simbolos.svg" 
+          alt="" 
+          width={1480} 
+          height={1237}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div 
+        className="absolute left-[-600px] w-[1200px] h-[1200px] rounded-full pointer-events-none"
+        style={{
+          top: "50%",
+          transform: "translateY(-50%)",
+          background: "radial-gradient(circle, rgba(46, 56, 107, 0.3) 0%, transparent 70%)",
+          zIndex: 1
+        }}
+        aria-hidden="true"
+      />
+      <div 
+        className="absolute right-[-600px] w-[1200px] h-[1200px] rounded-full pointer-events-none"
+        style={{
+          top: "50%",
+          transform: "translateY(-50%)",
+          background: "radial-gradient(circle, rgba(46, 56, 107, 0.3) 0%, transparent 70%)",
+          zIndex: 1
+        }}
+        aria-hidden="true"
+      />
+      <div className="max-w-6xl mx-auto px-6 text-left relative z-10">
         <h1 className="text-4xl md:text-6xl font-light text-white mb-4">
           Oi, eu sou a <span className="font-serif italic">Laísla Alles</span><span className="font-serif italic">,</span>
         </h1>
         <p className="text-4xl md:text-6xl font-light text-white mb-8">
-          sou <span className="font-serif italic text-[#3366FF]">{currentText}</span><span className="font-serif italic text-[#3366FF] animate-pulse font-thin scale-x-50 inline-block">|</span>
+          sou{" "}
+          <span className="relative inline-block text-left">
+            <span className="font-serif italic text-[#3366FF] invisible" aria-hidden="true">
+              {longestTerm}
+            </span>
+            <span className="absolute left-0 top-0 whitespace-nowrap font-serif italic text-[#3366FF]">
+              {currentText}
+              <span className="animate-pulse font-thin scale-x-50 inline-block">|</span>
+            </span>
+          </span>
         </p>
         <p className="text-lg md:text-xl text-white max-w-2xl font-light">
           E seja bem-vindo(a) ao meu portfólio!

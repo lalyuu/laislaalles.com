@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[85%] max-w-5xl bg-[#161a27]/80 backdrop-blur-md rounded-full shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-6xl bg-[#161a27]/80 backdrop-blur-md rounded-full shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
       <div className="flex items-center justify-between px-6 py-3">
         <a href="#">
           <img src="/assets/Logo.svg" alt="Laísla Alles" className="h-8 w-auto" />
