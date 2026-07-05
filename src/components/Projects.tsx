@@ -1,22 +1,8 @@
 import Image from "next/image";
+import { getProjects } from "@/lib/projects";
 
-export default function Projects() {
-  const projects = [
-    {
-      id: 1,
-      tags: ["Motion Design", "UX Motion", "Motion Branding"],
-      title: "Projeto de animação para a marca Conecta Venda",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
-      date: "4 de jun. de 2026",
-    },
-    {
-      id: 2,
-      tags: ["Motion Design", "UX Motion", "Motion Branding"],
-      title: "Macro Publicidade - Projeto de animação para a marca Conecta Venda",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
-      date: "3 de jun. de 2026",
-    },
-  ];
+export default async function Projects() {
+  const projects = await getProjects();
 
   return (
     <section id="projetos" className="py-24">
@@ -35,6 +21,16 @@ export default function Projects() {
               key={project.id}
               className="group shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer"
             >
+              {project.image && (
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.tags.map((tag) => (
                   <span
