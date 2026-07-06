@@ -87,7 +87,7 @@ export default function About() {
         style={{
           top: "50%",
           transform: gradientTransform,
-          background: "radial-gradient(circle, rgba(46, 56, 107, 0.3) 0%, transparent 70%)"
+          background: "radial-gradient(circle, rgba(46, 56, 107, 0.18) 0%, transparent 70%)"
         }}
         aria-hidden="true"
       />
@@ -96,7 +96,7 @@ export default function About() {
         style={{
           top: "50%",
           transform: gradientTransform,
-          background: "radial-gradient(circle, rgba(46, 56, 107, 0.3) 0%, transparent 70%)"
+          background: "radial-gradient(circle, rgba(46, 56, 107, 0.18) 0%, transparent 70%)"
         }}
         aria-hidden="true"
       />

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { getProjects } from "@/lib/projects";
+import Link from "next/link";
+import { getProjects, getTagColor } from "@/lib/projects";
 
 export default async function Projects() {
   const projects = await getProjects();
@@ -17,12 +18,13 @@ export default async function Projects() {
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {projects.map((project) => (
-            <article
+            <Link
               key={project.id}
-              className="group shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer"
+              href={`/projects/${project.id}`}
+              className="group rounded-2xl overflow-hidden shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] hover:shadow-lg transition-all block"
             >
               {project.image && (
-                <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                <div className="relative w-full h-[200px]">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -31,22 +33,25 @@ export default async function Projects() {
                   />
                 </div>
               )}
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              <div className="p-7">
+                <div className="flex flex-wrap gap-x-4 gap-y-1.5 mb-3">
+                  {project.tags.map((tag, i) => (
+                    <span key={tag} className="flex items-center gap-1.5 text-sm" style={{ color: "rgba(184, 197, 224, 0.6)" }}>
+                      <span
+                        className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: getTagColor(tag, i) }}
+                      />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-muted text-base mb-3 line-clamp-2">{project.description}</p>
+                <time className="text-sm" style={{ color: "rgba(184, 197, 224, 0.48)" }}>{project.date}</time>
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
-                {project.title}
-              </h3>
-              <p className="text-muted text-sm mb-4">{project.description}</p>
-              <time className="text-xs text-muted">{project.date}</time>
-            </article>
+            </Link>
           ))}
         </div>
 

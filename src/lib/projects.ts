@@ -3,9 +3,25 @@ export interface Project {
   title: string
   description: string
   tags: string[]
+  tagColors?: string[]
   image?: string
   date: string
   rawDate: string
+}
+
+export const TAG_COLOR_MAP: Record<string, string> = {
+  "Motion Design": "#FF5FCF",
+  "Motion": "#FF5FCF",
+  "UX Motion": "#875EFF",
+  "Branding": "#2E9EFF",
+  "Design": "#2E9EFF",
+  "UI/UX": "#875EFF",
+}
+
+export function getTagColor(tag: string, index: number): string {
+  if (TAG_COLOR_MAP[tag]) return TAG_COLOR_MAP[tag]
+  const fallbacks = ["#FF5FCF", "#875EFF", "#2E9EFF", "#F09020", "#50C878"]
+  return fallbacks[index % fallbacks.length]
 }
 
 interface GitHubContentItem {
