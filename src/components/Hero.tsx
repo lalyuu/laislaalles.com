@@ -7,9 +7,6 @@ const terms = [
   "Designer Gráfica.", 
   "Motion Designer.", 
   "Editora de Vídeos.",
-  "Apaixonada por Jogos.", 
-  "Apaixonada por Terror.", 
-  "Apaixonada por Gatos."
 ];
 
 const longestTerm = terms.reduce((a, b) => a.length > b.length ? a : b, "");

@@ -21,7 +21,7 @@ export default async function Projects() {
             <Link
               key={project.id}
               href={`/projects/${project.id}`}
-              className="group rounded-2xl overflow-hidden shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] hover:shadow-lg transition-all block"
+              className="group rounded-2xl overflow-hidden bg-[#859ce024] hover:shadow-lg transition-all block"
             >
               {project.image && (
                 <div className="relative w-full h-[200px]">
@@ -36,7 +36,7 @@ export default async function Projects() {
               <div className="p-7">
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5 mb-3">
                   {project.tags.map((tag, i) => (
-                    <span key={tag} className="flex items-center gap-1.5 text-sm" style={{ color: "rgba(184, 197, 224, 0.6)" }}>
+                    <span key={tag} className="flex items-center gap-1.5 text-sm px-3 py-1 rounded-full bg-[rgba(133,156,224,0.17)]" style={{ color: "rgba(184, 197, 224, 0.6)" }}>
                       <span
                         className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                         style={{ backgroundColor: getTagColor(tag, i) }}
