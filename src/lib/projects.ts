@@ -90,7 +90,7 @@ export async function getProjects(): Promise<Project[]> {
   try {
     const response = await fetch(
       'https://api.github.com/repos/lalyuu/content-laislaalles.com/contents/projects',
-      { next: { revalidate: 3600 } },
+      { next: { revalidate: 120 } },
     )
 
     if (!response.ok) return []
