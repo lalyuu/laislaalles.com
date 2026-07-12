@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ContactForm from "./ContactForm";
 
 export default function Contact() {
   return (
@@ -49,6 +50,10 @@ export default function Contact() {
             <Image src="/icons/Download.svg" alt="" width={20} height={20} />
             Currículo
           </a>
+        </div>
+
+        <div className="mt-16 max-w-lg mx-auto w-full">
+          <ContactForm />
         </div>
       </div>
     </section>
