@@ -7,9 +7,6 @@ const terms = [
   "Designer Gráfica.", 
   "Motion Designer.", 
   "Editora de Vídeos.",
-  "Apaixonada por Jogos.", 
-  "Apaixonada por Terror.", 
-  "Apaixonada por Gatos."
 ];
 
 const longestTerm = terms.reduce((a, b) => a.length > b.length ? a : b, "");
@@ -45,9 +42,9 @@ export default function Hero() {
   }, [currentText, isDeleting, currentTermIndex]);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center pt-20 relative overflow-hidden">
+    <section id="hero" className="min-h-screen flex flex-col items-center justify-center pt-20 relative overflow-hidden">
       <div 
-        className="absolute top-0 left-0 w-full h-[150%] opacity-[0.017] pointer-events-none"
+        className="absolute top-0 left-0 w-full h-[150%] opacity-[0.01] pointer-events-none"
         aria-hidden="true"
       >
         <Image 

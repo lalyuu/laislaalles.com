@@ -1,22 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
+import { getProjects, getTagColor } from "@/lib/projects";
 
-export default function Projects() {
-  const projects = [
-    {
-      id: 1,
-      tags: ["Motion Design", "UX Motion", "Motion Branding"],
-      title: "Projeto de animação para a marca Conecta Venda",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
-      date: "4 de jun. de 2026",
-    },
-    {
-      id: 2,
-      tags: ["Motion Design", "UX Motion", "Motion Branding"],
-      title: "Macro Publicidade - Projeto de animação para a marca Conecta Venda",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
-      date: "3 de jun. de 2026",
-    },
-  ];
+export default async function Projects() {
+  const projects = await getProjects();
 
   return (
     <section id="projetos" className="py-24">
@@ -31,26 +18,41 @@ export default function Projects() {
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {projects.map((project) => (
-            <article
+            <Link
               key={project.id}
-              className="group shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer"
+              href={`/projects/${project.id}`}
+              className="group rounded-2xl overflow-hidden bg-[#859ce024] hover:shadow-lg transition-all block"
             >
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              {project.image && (
+                <div className="relative w-full h-[200px]">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              <div className="p-7">
+                <div className="flex flex-wrap gap-x-4 gap-y-1.5 mb-3">
+                  {project.tags.map((tag, i) => (
+                    <span key={tag} className="flex items-center gap-1.5 text-sm px-3 py-1 rounded-full bg-[rgba(133,156,224,0.17)]" style={{ color: "rgba(184, 197, 224, 0.6)" }}>
+                      <span
+                        className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: getTagColor(tag, i) }}
+                      />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-muted text-base mb-3 line-clamp-2">{project.description}</p>
+                <time className="text-sm" style={{ color: "rgba(184, 197, 224, 0.48)" }}>{project.date}</time>
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
-                {project.title}
-              </h3>
-              <p className="text-muted text-sm mb-4">{project.description}</p>
-              <time className="text-xs text-muted">{project.date}</time>
-            </article>
+            </Link>
           ))}
         </div>
 
