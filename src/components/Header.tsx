@@ -1,6 +1,37 @@
+"use client";
+
 import Image from "next/image";
+import { useState, useEffect } from "react";
+
+const NAV_ITEMS = [
+  { href: "#hero", label: "" },
+  { href: "#projetos", label: "Projetos" },
+  { href: "#sobre", label: "Sobre mim" },
+  { href: "#experiencia", label: "Experiência" },
+  { href: "#contato", label: "Contato" },
+];
 
 export default function Header() {
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const sections = NAV_ITEMS.map((item) => document.querySelector(item.href)).filter(Boolean) as Element[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(`#${entry.target.id}`);
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-6xl bg-[#161a27]/80 backdrop-blur-md rounded-full shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
       <div className="flex items-center justify-between px-6 py-3">
@@ -8,19 +39,20 @@ export default function Header() {
           <img src="/assets/Logo.svg" alt="Laísla Alles" className="h-8 w-auto" />
         </a>
 
-        <nav className="hidden md:flex items-center gap-6 px-8 py-2 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] rounded-full">
-          <a href="#sobre" className="text-sm text-muted hover:text-foreground transition-colors">
-            Sobre mim
-          </a>
-          <a href="#projetos" className="text-sm text-muted hover:text-foreground transition-colors">
-            Projetos
-          </a>
-          <a href="#experiencia" className="text-sm text-muted hover:text-foreground transition-colors">
-            Experiência
-          </a>
-          <a href="#contato" className="text-sm text-muted hover:text-foreground transition-colors">
-            Contato
-          </a>
+        <nav className="hidden md:flex items-center gap-4">
+          {NAV_ITEMS.filter((item) => item.label).map(({ href, label }) => (
+            <a
+              key={href}
+              href={href}
+              className={`text-sm transition-colors px-4 py-1.5 rounded-full bg-[#1c2235] ${
+                activeSection === href
+                  ? "text-foreground"
+                  : "text-muted hover:text-foreground"
+              }`}
+            >
+              {label}
+            </a>
+          ))}
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
