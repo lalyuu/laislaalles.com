@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Experience() {
   return (
-    <section id="experiencia" className="py-24">
+    <section id="experiencia" className="relative z-0 py-24 bg-background">
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center gap-3">
           <Image src="/icons/Experience.svg" alt="" width={28} height={28} className="text-accent" />

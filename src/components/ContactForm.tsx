@@ -21,34 +21,49 @@ export default function ContactForm() {
 
   return (
     <form action={action} className="flex flex-col gap-4 text-left">
+      <div className="flex flex-col gap-1">
+        <p className="text-xl font-bold text-foreground">
+          Me envie uma mensagem!
+        </p>
+        <p className="text-muted text-sm">
+          Preencha os dados abaixo e entrarei em contato o mais breve possível.
+        </p>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <input
           name="name"
-          placeholder="Nome completo"
+          placeholder="Seu nome completo"
           required
-          className="w-full px-4 py-3 rounded-xl bg-[#1c2235] text-foreground placeholder:text-muted outline-none shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.6)] transition-shadow"
+          className="w-full px-4 py-3 rounded-xl bg-[#859ce0]/8 text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(184,197,224,0.8)] transition-shadow"
         />
         <input
           name="email"
           type="email"
-          placeholder="Seu email"
+          placeholder="seu@email.com"
           required
-          className="w-full px-4 py-3 rounded-xl bg-[#1c2235] text-foreground placeholder:text-muted outline-none shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.6)] transition-shadow"
+          className="w-full px-4 py-3 rounded-xl bg-[#859ce0]/8 text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(184,197,224,0.8)] transition-shadow"
         />
       </div>
       <input
         name="subject"
-        placeholder="Assunto"
+        placeholder="Sobre o que gostaria de falar?"
         required
-        className="w-full px-4 py-3 rounded-xl bg-[#1c2235] text-foreground placeholder:text-muted outline-none shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.6)] transition-shadow"
+        className="w-full px-4 py-3 rounded-xl bg-[#859ce0]/8 text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(184,197,224,0.8)] transition-shadow"
       />
-      <textarea
-        name="message"
-        placeholder="Mensagem"
-        required
-        rows={5}
-        className="w-full px-4 py-3 rounded-xl bg-[#1c2235] text-foreground placeholder:text-muted outline-none shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.6)] transition-shadow resize-none"
-      />
+      <div className="flex flex-col gap-1">
+        <textarea
+          name="message"
+          placeholder="Descreva sua dúvida ou proposta…"
+          required
+          rows={5}
+          className="w-full px-4 py-3 rounded-xl bg-[#859ce0]/8 text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(184,197,224,0.8)] transition-shadow resize-none"
+        />
+        <div className="text-right">
+          <p className="text-muted/60 text-sm font-light">
+            *Tempo de resposta: +/- 24h
+          </p>
+        </div>
+      </div>
       <button
         type="submit"
         disabled={pending}

@@ -3,7 +3,7 @@ import ContactForm from "./ContactForm";
 
 export default function Contact() {
   return (
-    <section id="contato" className="py-24 bg-surface">
+    <section id="contato" className="relative z-0 py-24 bg-background">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-left mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center gap-3">
@@ -15,8 +15,8 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          <div className="md:order-2 flex flex-col gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-16 items-start">
+          <div className="md:order-2 md:col-span-2 flex flex-col gap-6 relative md:pl-6 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-gradient-to-b before:from-transparent before:via-[rgba(133,156,224,0.5)] before:to-transparent">
             <h4 className="text-[#ebebeb] text-2xl font-bold leading-6">
               Outras opções de contato:
             </h4>
@@ -29,7 +29,7 @@ export default function Contact() {
                 className="w-full px-6 py-4 border border-[rgba(133,156,224,0.4)] text-[#ebebeb] rounded-[16px] hover:opacity-80 transition-opacity flex items-center justify-between gap-6"
               >
                 <span className="flex items-center gap-3 font-bold">
-                  <Image src="/icons/WhatsApp.svg" alt="" width={20} height={20} />
+                  <Image src="/icons/WhatsApp.svg" alt="" width={24} height={24} />
                   WhatsApp
                 </span>
                 <Image src="/icons/Redirect.svg" alt="" width={16} height={16} />
@@ -41,7 +41,7 @@ export default function Contact() {
                 className="w-full px-6 py-4 border border-[rgba(133,156,224,0.4)] text-[#ebebeb] rounded-[16px] hover:opacity-80 transition-opacity flex items-center justify-between gap-6"
               >
                 <span className="flex items-center gap-3 font-bold">
-                  <Image src="/icons/LinkedIn.svg" alt="" width={20} height={20} />
+                  <Image src="/icons/LinkedIn.svg" alt="" width={24} height={24} />
                   LinkedIn
                 </span>
                 <Image src="/icons/Redirect.svg" alt="" width={16} height={16} />
@@ -53,7 +53,7 @@ export default function Contact() {
                 className="w-full px-6 py-4 border border-[rgba(133,156,224,0.4)] text-[#ebebeb] rounded-[16px] hover:opacity-80 transition-opacity flex items-center justify-between gap-6"
               >
                 <span className="flex items-center gap-3 font-bold">
-                  <Image src="/icons/Instagram.svg" alt="" width={20} height={20} />
+                  <Image src="/icons/Instagram.svg" alt="" width={24} height={24} />
                   Instagram
                 </span>
                 <Image src="/icons/Redirect.svg" alt="" width={16} height={16} />
@@ -61,7 +61,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="md:order-1">
+          <div className="md:order-1 md:col-span-3 bg-[#121621] p-8 rounded-2xl">
             <ContactForm />
           </div>
         </div>

@@ -6,7 +6,7 @@ export default async function Projects() {
   const projects = await getProjects();
 
   return (
-    <section id="projetos" className="py-24">
+    <section id="projetos" className="relative z-10 bg-[#101318] -mt-screen py-24 rounded-t-[48px] overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center gap-3">
           <Image src="/icons/Frame.svg" alt="" width={28} height={28} className="text-accent" />
