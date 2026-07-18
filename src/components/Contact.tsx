@@ -3,7 +3,10 @@ import ContactForm from "./ContactForm";
 
 export default function Contact() {
   return (
-    <section id="contato" className="relative z-0 py-24 bg-background">
+    <section id="contato" className="relative z-0 py-24 bg-background
+      before:content-['']
+      before:absolute before:top-0 before:left-0 before:w-full before:h-px
+      before:bg-gradient-to-r before:from-transparent before:via-[rgba(133,156,224,0.15)] before:to-transparent">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-left mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center gap-3">
@@ -16,7 +19,7 @@ export default function Contact() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-16 items-start">
-          <div className="md:order-2 md:col-span-2 flex flex-col gap-6 relative md:pl-6 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-gradient-to-b before:from-transparent before:via-[rgba(133,156,224,0.5)] before:to-transparent">
+          <div className="md:order-2 md:col-span-2 flex flex-col gap-6 relative md:pl-6 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-gradient-to-b before:from-transparent before:via-[rgba(133,156,224,0.15)] before:to-transparent">
             <h4 className="text-[#ebebeb] text-2xl font-bold leading-6">
               Outras opções de contato:
             </h4>

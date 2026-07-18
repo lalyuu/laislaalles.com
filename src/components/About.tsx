@@ -79,7 +79,7 @@ export default function About() {
     <section 
       id="sobre" 
       ref={sectionRef}
-      className="py-24 bg-background relative z-0 overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-px before:bg-gradient-to-r before:from-transparent before:via-[rgba(133,156,224,0.5)] before:to-transparent after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-gradient-to-r after:from-transparent after:via-[rgba(133,156,224,0.5)] after:to-transparent"
+      className="py-24 bg-background relative z-0 overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-px before:bg-gradient-to-r before:from-transparent before:via-[rgba(133,156,224,0.15)] before:to-transparent after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-gradient-to-r after:from-transparent after:via-[rgba(133,156,224,0.15)] after:to-transparent"
     >
       <div 
         className="absolute left-[-600px] w-[1200px] h-[1200px] rounded-full pointer-events-none z-0"

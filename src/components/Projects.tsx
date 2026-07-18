@@ -6,7 +6,10 @@ export default async function Projects() {
   const projects = await getProjects();
 
   return (
-    <section id="projetos" className="relative z-10 bg-[#101318] -mt-screen py-24 rounded-t-[48px] overflow-hidden">
+    <section id="projetos" className="relative z-10 bg-background -mt-screen py-24 rounded-t-[48px] overflow-hidden
+      before:content-['']
+      before:absolute before:top-0 before:left-0 before:w-full before:h-px
+      before:bg-gradient-to-r before:from-transparent before:via-[rgba(133,156,224,0.15)] before:to-transparent">
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center gap-3">
           <Image src="/icons/Frame.svg" alt="" width={28} height={28} className="text-accent" />
