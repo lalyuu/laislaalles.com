@@ -46,7 +46,7 @@ export default function Experience() {
           />
           Experiência Profissional
         </h2>
-        <p className="text-muted mb-12 max-w-2xl">
+        <p className="text-muted mb-12">
           Ao longo dos últimos 3 anos, venho construindo minha trajetória como
           Designer, Motion Designer e entusiasta do audiovisual.
         </p>
@@ -57,12 +57,18 @@ export default function Experience() {
               <div
                 key={exp.id}
                 onClick={() => setActiveId(exp.id)}
-                className={`bg-[rgba(133,156,224,0.08)] rounded-[24px] p-5 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] transition-all duration-300 cursor-pointer ${
+                className={`relative bg-[rgba(133,156,224,0.08)] rounded-[24px] p-5 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] transition-all duration-300 cursor-pointer ${
                   activeId === exp.id
                     ? "bg-[rgba(133,156,224,0.14)] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.55)]"
                     : "hover:bg-[rgba(133,156,224,0.11)]"
                 }`}
               >
+                {exp.saida === "Atualmente" && (
+                  <span className="absolute top-3 right-3 text-[11px] font-semibold text-accent bg-accent/10 px-2.5 py-1 rounded-full flex items-center gap-1.5">
+                    <Image src="/icons/Arrow-Right-Simple.svg" alt="" width={6} height={6} className="text-accent animate-point-right" />
+                    Atual
+                  </span>
+                )}
                 <div className="flex items-center gap-5">
                   <div className={`w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] ${exp.logoSrc ? "relative overflow-hidden" : "bg-gradient-to-br from-accent/20 to-accent/5"}`}>
                     {exp.logoSrc ? (
@@ -88,8 +94,8 @@ export default function Experience() {
                     <h3 className="text-lg font-semibold text-foreground truncate">
                       {exp.cargo}
                     </h3>
-                    <p className="text-sm text-cta truncate">{exp.empresa}</p>
-                    <p className="text-sm text-muted/70">
+                    <p className="text-sm text-muted truncate">{exp.empresa}</p>
+                    <p className="text-sm text-muted/60">
                       {exp.inicio} — {exp.saida}
                     </p>
                   </div>
@@ -100,7 +106,13 @@ export default function Experience() {
 
           <div className="md:col-span-5 relative md:pl-12 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-gradient-to-b before:from-transparent before:via-[rgba(133,156,224,0.15)] before:to-transparent">
             {activeExp && (
-              <div className="bg-[rgba(133,156,224,0.08)] rounded-[24px] p-8 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] transition-all duration-300">
+              <div className="relative bg-[rgba(133,156,224,0.08)] rounded-[24px] p-8 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] transition-all duration-300">
+                {activeExp.saida === "Atualmente" && (
+                  <span className="absolute top-5 right-5 text-[13px] font-semibold text-accent bg-accent/10 px-3 py-1.5 rounded-full flex items-center gap-1.5">
+                    <Image src="/icons/Arrow-Right-Simple.svg" alt="" width={6} height={6} className="text-accent animate-point-right" />
+                    Atual
+                  </span>
+                )}
                 <div className="flex items-start gap-6">
                   <div className={`w-[88px] h-[88px] rounded-xl flex items-center justify-center flex-shrink-0 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] ${activeExp.logoSrc ? "relative overflow-hidden" : "bg-gradient-to-br from-accent/20 to-accent/5"}`}>
                     {activeExp.logoSrc ? (
@@ -123,20 +135,20 @@ export default function Experience() {
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-1">
+                    <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-1">
                       <h3 className="text-2xl font-semibold text-foreground">
                         {activeExp.cargo}
                       </h3>
-                      <span className="text-base text-cta">
+                      <span className="text-base text-muted">
                         {activeExp.empresa}
                       </span>
                     </div>
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-6">
-                      <span className="text-sm text-muted">
+                      <span className="text-sm text-muted/60">
                         {activeExp.inicio} — {activeExp.saida}
                       </span>
                       <span className="text-xs text-muted/50">|</span>
-                      <span className="text-sm text-muted">
+                      <span className="text-sm text-muted/60">
                         {activeExp.modalidade}
                       </span>
                     </div>

@@ -11,6 +11,12 @@
   --color-cta: #3366FF;
   --font-sans: var(--font-dm-sans);
   --font-serif: var(--font-dm-serif);
+  --animate-point-right: point-right 1.5s ease-in-out infinite;
+}
+
+@keyframes point-right {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
 }
 
 body {
