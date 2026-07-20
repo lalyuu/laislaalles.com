@@ -9,11 +9,15 @@ const experiences = [
     cargo: "Designer Gráfica",
     empresa: "Macro Publicidade",
     inicio: "Junho 2023",
-    saida: "Atualmente",
+    saida: "Presente",
     modalidade: "Presencial",
     logoSrc: "/assets/Macro-logo.png",
     descricao:
       "Criação de artes digitais e impressas para campanhas publicitárias. Desenvolvimento de identidades visuais, peças gráficas e materiais institucionais. Colaboração com a equipe de criação para garantir a consistência visual dos projetos.",
+    conquistas: [
+      "Liderou a migração da identidade visual de 3 marcas, resultando em um aumento de 30% no engajamento",
+      "Implementou um sistema de templates que reduziu em 40% o tempo de produção de artes",
+    ],
   },
   {
     id: 2,
@@ -25,6 +29,10 @@ const experiences = [
     logoSrc: "/assets/Panamericana-logo.png",
     descricao:
       "Produção de animações e motion graphics para redes sociais e campanhas digitais. Criação de vinhetas, GIFs animados e vídeos institucionais. Edição e pós-produção de conteúdo audiovisual.",
+    conquistas: [
+      "Produziu mais de 50 animações para campanhas que alcançaram 2M+ visualizações",
+      "Desenvolveu um guia de motion design que padronizou a linguagem visual da equipe",
+    ],
   },
 ];
 
@@ -63,7 +71,7 @@ export default function Experience() {
                     : "hover:bg-[rgba(133,156,224,0.11)]"
                 }`}
               >
-                {exp.saida === "Atualmente" && (
+                {exp.saida === "Presente" && (
                   <span className="absolute top-3 right-3 text-[11px] font-semibold text-accent bg-accent/10 px-2.5 py-1 rounded-full flex items-center gap-1.5">
                     <Image src="/icons/Arrow-Right-Simple.svg" alt="" width={6} height={6} className="text-accent animate-point-right" />
                     Atual
@@ -107,7 +115,7 @@ export default function Experience() {
           <div className="md:col-span-5 relative md:pl-12 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-gradient-to-b before:from-transparent before:via-[rgba(133,156,224,0.15)] before:to-transparent">
             {activeExp && (
               <div className="relative bg-[rgba(133,156,224,0.08)] rounded-[24px] p-8 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] transition-all duration-300">
-                {activeExp.saida === "Atualmente" && (
+                {activeExp.saida === "Presente" && (
                   <span className="absolute top-5 right-5 text-[13px] font-semibold text-accent bg-accent/10 px-3 py-1.5 rounded-full flex items-center gap-1.5">
                     <Image src="/icons/Arrow-Right-Simple.svg" alt="" width={6} height={6} className="text-accent animate-point-right" />
                     Atual
@@ -135,26 +143,41 @@ export default function Experience() {
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-1">
-                      <h3 className="text-2xl font-semibold text-foreground">
-                        {activeExp.cargo}
-                      </h3>
+                    <h3 className="text-2xl font-semibold text-foreground mb-1">
+                      {activeExp.cargo}
+                    </h3>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-6">
                       <span className="text-base text-muted">
                         {activeExp.empresa}
                       </span>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-6">
-                      <span className="text-sm text-muted/60">
+                      <span className="text-sm text-muted/60 flex items-center gap-1.5">
+                        <Image src="/icons/Calendar.svg" alt="" width={14} height={14} className="opacity-60" />
                         {activeExp.inicio} — {activeExp.saida}
                       </span>
-                      <span className="text-xs text-muted/50">|</span>
-                      <span className="text-sm text-muted/60">
+                      <span className="text-sm text-muted/60 flex items-center gap-1.5">
+                        <Image src="/icons/Pin.svg" alt="" width={14} height={14} className="opacity-60" />
                         {activeExp.modalidade}
                       </span>
                     </div>
                     <p className="text-muted leading-relaxed">
                       {activeExp.descricao}
                     </p>
+                    {activeExp.conquistas && (
+                      <div className="mt-6 space-y-3">
+                        <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                          <span className="w-1 h-4 rounded-full bg-accent" />
+                          Principais conquistas
+                        </h4>
+                        <ul className="space-y-2">
+                          {activeExp.conquistas.map((item, i) => (
+                            <li key={i} className="text-sm text-muted flex items-start gap-2.5">
+                              <span className="mt-[5px] w-1.5 h-1.5 rounded-full bg-accent/60 flex-shrink-0" />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
