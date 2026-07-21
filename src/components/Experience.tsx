@@ -2,39 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-
-const experiences = [
-  {
-    id: 1,
-    cargo: "Designer Gráfica",
-    empresa: "Macro Publicidade",
-    inicio: "Junho 2023",
-    saida: "Presente",
-    modalidade: "Presencial",
-    logoSrc: "/assets/Macro-logo.png",
-    descricao:
-      "Criação de artes digitais e impressas para campanhas publicitárias. Desenvolvimento de identidades visuais, peças gráficas e materiais institucionais. Colaboração com a equipe de criação para garantir a consistência visual dos projetos.",
-    conquistas: [
-      "Liderou a migração da identidade visual de 3 marcas, resultando em um aumento de 30% no engajamento",
-      "Implementou um sistema de templates que reduziu em 40% o tempo de produção de artes",
-    ],
-  },
-  {
-    id: 2,
-    cargo: "Motion Designer",
-    empresa: "Panamericana",
-    inicio: "Janeiro 2022",
-    saida: "Maio 2023",
-    modalidade: "Remoto",
-    logoSrc: "/assets/Panamericana-logo.png",
-    descricao:
-      "Produção de animações e motion graphics para redes sociais e campanhas digitais. Criação de vinhetas, GIFs animados e vídeos institucionais. Edição e pós-produção de conteúdo audiovisual.",
-    conquistas: [
-      "Produziu mais de 50 animações para campanhas que alcançaram 2M+ visualizações",
-      "Desenvolveu um guia de motion design que padronizou a linguagem visual da equipe",
-    ],
-  },
-];
+import { experiences } from "@/lib/experiences";
 
 export default function Experience() {
   const [activeId, setActiveId] = useState<number>(experiences[0].id);
@@ -163,19 +131,23 @@ export default function Experience() {
                       {activeExp.descricao}
                     </p>
                     {activeExp.conquistas && (
-                      <div className="mt-6 space-y-3">
-                        <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
-                          <span className="w-1 h-4 rounded-full bg-accent" />
+                      <div className="mt-8">
+                        <h4 className="text-sm font-semibold text-foreground mb-4">
                           Principais conquistas
                         </h4>
-                        <ul className="space-y-2">
-                          {activeExp.conquistas.map((item, i) => (
-                            <li key={i} className="text-sm text-muted flex items-start gap-2.5">
-                              <span className="mt-[5px] w-1.5 h-1.5 rounded-full bg-accent/60 flex-shrink-0" />
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
+                        <div className="relative after:content-[''] after:absolute after:left-0 after:w-[15px] after:bottom-0 after:h-[30px] after:bg-[#141820]">
+                          <div className="absolute left-[7px] top-[10px] bottom-0 w-px bg-[rgba(133,156,224,0.2)]" />
+                          <div className="relative z-10 flex flex-col gap-5">
+                            {activeExp.conquistas.map((item, i) => (
+                              <div key={i} className="flex items-start gap-3">
+                                <div className="w-[14px] h-[14px] mt-[3px] rounded-full border-[1.5px] border-[rgba(133,156,224,0.3)] bg-[#0a0c0f] shadow-[inset_0_0_0_10px_rgba(133,156,224,0.08)] flex-shrink-0" />
+                                <p className="text-sm text-muted leading-relaxed flex-1">
+                                  {item}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
