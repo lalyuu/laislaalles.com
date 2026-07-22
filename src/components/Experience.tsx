@@ -33,7 +33,7 @@ export default function Experience() {
               <div
                 key={exp.id}
                 onClick={() => setActiveId(exp.id)}
-                className={`relative bg-[rgba(133,156,224,0.08)] rounded-[24px] p-5 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] transition-all duration-300 cursor-pointer ${
+                className={`relative bg-[rgba(133,156,224,0.08)] rounded-[20px] p-5 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] transition-all duration-300 cursor-pointer ${
                   activeId === exp.id
                     ? "bg-[rgba(133,156,224,0.14)] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.55)]"
                     : "hover:bg-[rgba(133,156,224,0.11)]"
@@ -80,7 +80,7 @@ export default function Experience() {
             ))}
           </div>
 
-          <div className="md:col-span-5 relative md:pl-12 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-gradient-to-b before:from-transparent before:via-[rgba(133,156,224,0.15)] before:to-transparent">
+          <div className="md:col-span-5 relative md:pl-12 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-gradient-to-b before:from-transparent before:via-[rgba(133,156,224,0.25)] before:to-transparent">
             {activeExp && (
               <div className="relative bg-[rgba(133,156,224,0.08)] rounded-[24px] p-8 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] transition-all duration-300">
                 {activeExp.saida === "Presente" && (
@@ -132,21 +132,21 @@ export default function Experience() {
                     </p>
                     {activeExp.conquistas && (
                       <div className="mt-8">
-                        <h4 className="text-sm font-semibold text-foreground mb-4">
+                        <h4 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
+                          <Image src="/icons/Trofeu.svg" alt="" width={16} height={16} className="text-accent" />
                           Principais conquistas
                         </h4>
-                        <div className="relative after:content-[''] after:absolute after:left-0 after:w-[15px] after:bottom-0 after:h-[30px] after:bg-[#141820]">
-                          <div className="absolute left-[7px] top-[10px] bottom-0 w-px bg-[rgba(133,156,224,0.2)]" />
-                          <div className="relative z-10 flex flex-col gap-5">
-                            {activeExp.conquistas.map((item, i) => (
-                              <div key={i} className="flex items-start gap-3">
-                                <div className="w-[14px] h-[14px] mt-[3px] rounded-full border-[1.5px] border-[rgba(133,156,224,0.3)] bg-[#0a0c0f] shadow-[inset_0_0_0_10px_rgba(133,156,224,0.08)] flex-shrink-0" />
-                                <p className="text-sm text-muted leading-relaxed flex-1">
-                                  {item}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
+                        <div className="flex flex-col gap-3">
+                          {activeExp.conquistas.map((item, i) => (
+                            <div
+                              key={i}
+                              className="rounded-xl py-2 px-4 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.35)]"
+                            >
+                              <p className="text-sm text-muted leading-relaxed">
+                                {item}
+                              </p>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     )}
