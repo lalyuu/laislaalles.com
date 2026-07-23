@@ -23,8 +23,8 @@ export default function Experience() {
           Experiência Profissional
         </h2>
         <p className="text-muted mb-12">
-          Ao longo dos últimos 3 anos, venho construindo minha trajetória como
-          Designer, Motion Designer e entusiasta do audiovisual.
+          Ao longo dos últimos 3 anos, venho aprendendo, experimentando e evoluindo entre o design, o motion e o audiovisual.
+          Cada projeto é uma oportunidade de descobrir novas formas de criar.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-8 gap-8 md:gap-12 items-start">
@@ -115,7 +115,7 @@ export default function Experience() {
                       {activeExp.cargo}
                     </h3>
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-6">
-                      <span className="text-base text-muted">
+                      <span className="text-sm text-muted">
                         {activeExp.empresa}
                       </span>
                       <span className="text-sm text-muted/60 flex items-center gap-1.5">
@@ -132,21 +132,31 @@ export default function Experience() {
                     </p>
                     {activeExp.conquistas && (
                       <div className="mt-8">
-                        <h4 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
-                          <Image src="/icons/Trofeu.svg" alt="" width={16} height={16} className="text-accent" />
-                          Principais conquistas
-                        </h4>
-                        <div className="flex flex-col gap-3">
-                          {activeExp.conquistas.map((item, i) => (
-                            <div
-                              key={i}
-                              className="rounded-xl py-2 px-4 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.35)]"
-                            >
-                              <p className="text-sm text-muted leading-relaxed">
-                                {item}
-                              </p>
-                            </div>
-                          ))}
+                        <div className="inline-flex items-center gap-2 rounded-[10px] py-1.5 px-3 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.35)] mb-4">
+                          <Image src="/icons/Trofeu.svg" alt="" width={14} height={14} />
+                          <span className="text-sm text-foreground">Principais conquistas:</span>
+                        </div>
+                        <div className="relative">
+                          <div className="absolute left-[6px] top-[10px] bottom-0 w-px bg-[rgba(133,156,224,0.3)]" />
+                          <div className="relative z-10 flex flex-col gap-5">
+                            {activeExp.conquistas.map((item, i) => (
+                              <div key={i} className="flex items-start gap-3">
+                                <div className="w-[12px] h-[12px] mt-[4px] rounded-full border-[1.5px] border-[rgba(133,156,224,0.4)] bg-[#0a0c0f] shadow-[inset_0_0_0_10px_rgba(133,156,224,0.08)] flex-shrink-0" />
+                                <p className="text-sm text-muted leading-relaxed flex-1">
+                                  {(() => {
+                                    const colonIndex = item.indexOf(':')
+                                    if (colonIndex === -1) return item
+                                    return (
+                                      <>
+                                        <span className="font-semibold text-foreground">{item.slice(0, colonIndex + 1)}</span>
+                                        {item.slice(colonIndex + 1)}
+                                      </>
+                                    )
+                                  })()}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     )}

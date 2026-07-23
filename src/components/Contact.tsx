@@ -13,8 +13,10 @@ export default function Contact() {
             <Image src="/icons/Chat-Bubble.svg" alt="" width={28} height={28} className="text-accent" />
             Vamos criar juntos!
           </h2>
-          <p className="text-muted max-w-2xl">
-            Busco por vagas home office em período integral mas estou aberta a oportunidades presenciais na minha região (RS).
+          <p className="text-muted">
+            Se você chegou até aqui e acredita que meu trabalho pode contribuir com sua equipe, ficarei feliz em conversar!
+            <br />
+            No momento, procuro por vagas remotas em tempo integral, mas também estou aberta a oportunidades presenciais no RS.
           </p>
         </div>
 

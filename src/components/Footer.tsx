@@ -4,15 +4,17 @@ export default function Footer() {
   return (
     <footer className="py-8 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-          <div className="flex flex-col gap-2">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-12">
+          <div className="flex flex-col gap-4">
             <img src="/assets/Logo.svg" alt="Laísla Alles" className="h-10 w-auto" />
-            <p className="text-sm text-muted">
-              ©2026 | Laísla Alles
+            <p className="text-sm text-muted flex items-center gap-2">
+              <span>© 2026</span>
+              <span>|</span>
+              <span>Laísla Alles</span>
             </p>
           </div>
 
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col items-end gap-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-3 pr-4 border-r border-border">
                 <a href="https://api.whatsapp.com/send/?phone=555496971603&text=Ol%C3%A1%2C+vi+seu+portf%C3%B3lio+e+gostaria+de+conversar%21&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-foreground transition-colors">
