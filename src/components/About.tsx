@@ -196,7 +196,7 @@ export default function About() {
               <img src="/icons/Notebook.svg" alt="" width={22} height={22} className="text-accent" />
               Competências
             </h3>
-            <div className="py-8 px-10 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
+            <div className="py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
               <ul>
                 {competencias.map((item) => (
                   <li key={item} className="text-muted">
@@ -212,7 +212,7 @@ export default function About() {
               <img src="/icons/Target.svg" alt="" width={22} height={22} className="text-accent" />
               Habilidades pessoais
             </h3>
-            <div className="py-8 px-10 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
+            <div className="py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
               <ul>
                 {habilidades.map((item) => (
                   <li key={item} className="text-muted">

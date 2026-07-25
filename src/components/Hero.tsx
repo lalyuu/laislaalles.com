@@ -90,6 +90,7 @@ export default function Hero() {
       />
       <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center pt-20">
         <div className="max-w-6xl mx-auto px-6 text-left relative z-10">
+            <Image src="/icons/Simbolos.svg" alt="" width={72} height={72} className="mb-6" />
           <h1 className="text-4xl md:text-6xl font-light text-white mb-4">
             Oi, eu sou a <span className="font-serif italic">Laísla Alles</span><span className="font-serif italic">,</span>
           </h1>
@@ -109,8 +110,8 @@ export default function Hero() {
             E seja bem-vindo(a) ao meu portfólio!
           </p>
         </div>
-        <div className="mt-16 animate-bounce">
-          <Image src="/icons/Arrow-Down.svg" alt="" width={32} height={32} className="text-muted" />
+        <div className="mt-24 animate-bounce">
+          <Image src="/icons/Arrow-Down.svg" alt="" width={24} height={24} className="text-muted" />
         </div>
       </div>
     </section>

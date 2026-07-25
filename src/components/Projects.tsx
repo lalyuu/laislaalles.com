@@ -24,7 +24,7 @@ export default async function Projects() {
             <Link
               key={project.id}
               href={`/projects/${project.id}`}
-              className="group rounded-2xl overflow-hidden bg-[#859ce024] hover:shadow-lg transition-all block"
+              className="group relative rounded-2xl overflow-hidden bg-[#859ce024] hover:shadow-lg transition-all block"
             >
               {project.image && (
                 <div className="relative w-full h-[200px]">
@@ -55,14 +55,16 @@ export default async function Projects() {
                 <p className="text-muted text-base mb-3 line-clamp-2">{project.description}</p>
                 <time className="text-sm" style={{ color: "rgba(184, 197, 224, 0.48)" }}>{project.date}</time>
               </div>
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/80 backdrop-blur-sm rounded-2xl border border-[rgba(133,156,224,0.3)]">
+                <h3 className="text-2xl md:text-3xl font-semibold text-foreground flex items-center gap-0.5">
+                  Em breve
+                  <span className="inline-block" style={{ animation: "dot-wave 1.4s ease-in-out 0s infinite" }}>.</span>
+                  <span className="inline-block" style={{ animation: "dot-wave 1.4s ease-in-out 0.15s infinite" }}>.</span>
+                  <span className="inline-block" style={{ animation: "dot-wave 1.4s ease-in-out 0.3s infinite" }}>.</span>
+                </h3>
+              </div>
             </Link>
           ))}
-        </div>
-
-        <div className="text-center">
-          <button className="px-8 py-3 border border-border rounded-full text-foreground hover:bg-cta hover:text-white transition-colors">
-            Ver mais
-          </button>
         </div>
       </div>
     </section>

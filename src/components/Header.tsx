@@ -44,10 +44,10 @@ export default function Header() {
             <a
               key={href}
               href={href}
-              className={`text-sm transition-colors px-4 py-1.5 rounded-full bg-[#1c2235] ${
+              className={`text-sm transition-colors px-4 py-1.5 rounded-full border border-[rgba(133,156,224,0.3)] ${
                 activeSection === href
-                  ? "text-foreground"
-                  : "text-muted hover:text-foreground"
+                  ? "bg-[rgba(133,156,224,0.08)] text-foreground"
+                  : "bg-[rgba(133,156,224,0.04)] text-muted hover:text-foreground hover:bg-[rgba(133,156,224,0.06)]"
               }`}
             >
               {label}

@@ -19,6 +19,11 @@
   50% { transform: translateX(3px); }
 }
 
+@keyframes dot-wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
