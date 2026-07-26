@@ -79,8 +79,7 @@ export default function About() {
     <section 
       id="sobre" 
       ref={sectionRef}
-      className="py-24 bg-background relative overflow-hidden border-t border-b"
-      style={{ borderColor: "rgba(133, 156, 224, 0.15)" }}
+      className="py-24 bg-background relative z-0 overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-px before:bg-gradient-to-r before:from-transparent before:via-[rgba(133,156,224,0.15)] before:to-transparent after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-gradient-to-r after:from-transparent after:via-[rgba(133,156,224,0.15)] after:to-transparent"
     >
       <div 
         className="absolute left-[-600px] w-[1200px] h-[1200px] rounded-full pointer-events-none z-0"
@@ -197,7 +196,7 @@ export default function About() {
               <img src="/icons/Notebook.svg" alt="" width={22} height={22} className="text-accent" />
               Competências
             </h3>
-            <div className="py-8 px-10 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
+            <div className="py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
               <ul>
                 {competencias.map((item) => (
                   <li key={item} className="text-muted">
@@ -213,7 +212,7 @@ export default function About() {
               <img src="/icons/Target.svg" alt="" width={22} height={22} className="text-accent" />
               Habilidades pessoais
             </h3>
-            <div className="py-8 px-10 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
+            <div className="py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
               <ul>
                 {habilidades.map((item) => (
                   <li key={item} className="text-muted">

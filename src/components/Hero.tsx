@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
 const terms = [
@@ -12,6 +12,7 @@ const terms = [
 const longestTerm = terms.reduce((a, b) => a.length > b.length ? a : b, "");
 
 export default function Hero() {
+  const textRef = useRef<HTMLDivElement>(null);
   const [currentTermIndex, setCurrentTermIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -41,8 +42,20 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [currentText, isDeleting, currentTermIndex]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const progress = Math.min(1, (window.scrollY / window.innerHeight) * 2);
+      if (textRef.current) {
+        textRef.current.style.transform = `translateY(-${progress * 60}px)`;
+        textRef.current.style.opacity = String(1 - progress);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <section id="hero" className="min-h-screen flex flex-col items-center justify-center pt-20 relative overflow-hidden">
+    <section id="hero" className="h-screen sticky top-0 z-0 bg-background relative overflow-hidden">
       <div 
         className="absolute top-0 left-0 w-full h-[150%] opacity-[0.01] pointer-events-none"
         aria-hidden="true"
@@ -75,28 +88,31 @@ export default function Hero() {
         }}
         aria-hidden="true"
       />
-      <div className="max-w-6xl mx-auto px-6 text-left relative z-10">
-        <h1 className="text-4xl md:text-6xl font-light text-white mb-4">
-          Oi, eu sou a <span className="font-serif italic">Laísla Alles</span><span className="font-serif italic">,</span>
-        </h1>
-        <p className="text-4xl md:text-6xl font-light text-white mb-8">
-          sou{" "}
-          <span className="relative inline-block text-left">
-            <span className="font-serif italic text-[#3366FF] invisible" aria-hidden="true">
-              {longestTerm}
+      <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center pt-20">
+        <div className="max-w-6xl mx-auto px-6 text-left relative z-10">
+            <Image src="/icons/Simbolos.svg" alt="" width={72} height={72} className="mb-6" />
+          <h1 className="text-4xl md:text-6xl font-light text-white mb-4">
+            Oi, eu sou a <span className="font-serif italic">Laísla Alles</span><span className="font-serif italic">,</span>
+          </h1>
+          <p className="text-4xl md:text-6xl font-light text-white mb-8">
+            sou{" "}
+            <span className="relative inline-block text-left">
+              <span className="font-serif italic text-[#3366FF] invisible" aria-hidden="true">
+                {longestTerm}
+              </span>
+              <span className="absolute left-0 top-0 whitespace-nowrap font-serif italic text-[#3366FF]">
+                {currentText}
+                <span className="animate-pulse font-thin scale-x-50 inline-block">|</span>
+              </span>
             </span>
-            <span className="absolute left-0 top-0 whitespace-nowrap font-serif italic text-[#3366FF]">
-              {currentText}
-              <span className="animate-pulse font-thin scale-x-50 inline-block">|</span>
-            </span>
-          </span>
-        </p>
-        <p className="text-lg md:text-xl text-white max-w-2xl font-light">
-          E seja bem-vindo(a) ao meu portfólio!
-        </p>
-      </div>
-      <div className="mt-16 animate-bounce">
-        <Image src="/icons/Arrow-Down.svg" alt="" width={32} height={32} className="text-muted" />
+          </p>
+          <p className="text-lg md:text-xl text-white max-w-2xl font-light">
+            E seja bem-vindo(a) ao meu portfólio!
+          </p>
+        </div>
+        <div className="mt-24 animate-bounce">
+          <Image src="/icons/Arrow-Down.svg" alt="" width={24} height={24} className="text-muted" />
+        </div>
       </div>
     </section>
   );

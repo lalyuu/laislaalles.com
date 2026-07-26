@@ -3,57 +3,72 @@ import ContactForm from "./ContactForm";
 
 export default function Contact() {
   return (
-    <section id="contato" className="py-24 bg-surface">
-      <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center justify-center gap-3">
-          <Image src="/icons/Chat-Bubble.svg" alt="" width={28} height={28} className="text-accent" />
-          Vamos criar juntos!
-        </h2>
-        <p className="text-muted mb-8 max-w-2xl mx-auto">
-          Busco por vagas home office em período integral mas estou aberta a oportunidades presenciais na minha região (RS).
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-6">
-          <a
-            href="https://api.whatsapp.com/send/?phone=555496971603&text=Ol%C3%A1%2C+vi+seu+portf%C3%B3lio+e+gostaria+de+conversar%21&type=phone_number&app_absent=0"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 bg-[#24cb71] text-white rounded-full hover:bg-[#20b565] transition-colors flex items-center gap-2"
-          >
-            <Image src="/icons/WhatsApp.svg" alt="" width={20} height={20} />
-            WhatsApp
-          </a>
-          <a
-            href="https://www.linkedin.com/in/laisla-alles/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 bg-[#0066cc] text-white rounded-full hover:bg-[#0055aa] transition-colors flex items-center gap-2"
-          >
-            <Image src="/icons/LinkedIn.svg" alt="" width={20} height={20} />
-            LinkedIn
-          </a>
-          <a
-            href="https://www.instagram.com/designlaisla/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 bg-[#e1306c] text-white rounded-full hover:bg-[#c92860] transition-colors flex items-center gap-2"
-          >
-            <Image src="/icons/Instagram.svg" alt="" width={20} height={20} />
-            Instagram
-          </a>
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 border border-border text-foreground rounded-full hover:bg-cta hover:text-white transition-colors flex items-center gap-2"
-          >
-            <Image src="/icons/Download.svg" alt="" width={20} height={20} />
-            Currículo
-          </a>
+    <section id="contato" className="relative z-0 py-24 bg-background
+      before:content-['']
+      before:absolute before:top-0 before:left-0 before:w-full before:h-px
+      before:bg-gradient-to-r before:from-transparent before:via-[rgba(133,156,224,0.25)] before:to-transparent">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-left mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center gap-3">
+            <Image src="/icons/Chat-Bubble.svg" alt="" width={28} height={28} className="text-accent" />
+            Vamos criar juntos!
+          </h2>
+          <p className="text-muted">
+            Se você chegou até aqui e acredita que meu trabalho pode contribuir com sua equipe, ficarei feliz em conversar!
+            <br />
+            No momento, procuro por vagas remotas em tempo integral, mas também estou aberta a oportunidades presenciais no RS.
+          </p>
         </div>
 
-        <div className="mt-16 max-w-lg mx-auto w-full">
-          <ContactForm />
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-16 items-start">
+          <div className="md:order-2 md:col-span-2 flex flex-col gap-6 relative md:pl-6 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-gradient-to-b before:from-transparent before:via-[rgba(133,156,224,0.25)] before:to-transparent">
+            <h4 className="text-[#ebebeb] text-2xl font-bold leading-6">
+              Outras opções de contato:
+            </h4>
+
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://api.whatsapp.com/send/?phone=555496971603&text=Ol%C3%A1%2C+vi+seu+portf%C3%B3lio+e+gostaria+de+conversar%21&type=phone_number&app_absent=0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full px-6 py-4 border border-[rgba(133,156,224,0.4)] text-[#ebebeb] rounded-[16px] hover:opacity-80 transition-opacity flex items-center justify-between gap-6"
+              >
+                <span className="flex items-center gap-3 font-bold">
+                  <Image src="/icons/WhatsApp.svg" alt="" width={24} height={24} />
+                  WhatsApp
+                </span>
+                <Image src="/icons/Redirect.svg" alt="" width={16} height={16} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/laisla-alles/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full px-6 py-4 border border-[rgba(133,156,224,0.4)] text-[#ebebeb] rounded-[16px] hover:opacity-80 transition-opacity flex items-center justify-between gap-6"
+              >
+                <span className="flex items-center gap-3 font-bold">
+                  <Image src="/icons/LinkedIn.svg" alt="" width={24} height={24} />
+                  LinkedIn
+                </span>
+                <Image src="/icons/Redirect.svg" alt="" width={16} height={16} />
+              </a>
+              <a
+                href="https://www.instagram.com/designlaisla/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full px-6 py-4 border border-[rgba(133,156,224,0.4)] text-[#ebebeb] rounded-[16px] hover:opacity-80 transition-opacity flex items-center justify-between gap-6"
+              >
+                <span className="flex items-center gap-3 font-bold">
+                  <Image src="/icons/Instagram.svg" alt="" width={24} height={24} />
+                  Instagram
+                </span>
+                <Image src="/icons/Redirect.svg" alt="" width={16} height={16} />
+              </a>
+            </div>
+          </div>
+
+          <div className="md:order-1 md:col-span-3 bg-[#121621] p-8 rounded-2xl">
+            <ContactForm />
+          </div>
         </div>
       </div>
     </section>

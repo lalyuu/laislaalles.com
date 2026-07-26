@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Serif_Display } from "next/font/google";
+import CustomScrollbar from "@/components/CustomScrollbar";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -27,7 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${dmSans.variable} ${dmSerif.variable} antialiased`}>
-      <body className="min-h-screen overflow-x-hidden">{children}</body>
+      <body id="page-scroll-content" className="min-h-screen overflow-x-hidden">
+        {children}
+        <CustomScrollbar />
+      </body>
     </html>
   );
 }

@@ -11,6 +11,17 @@
   --color-cta: #3366FF;
   --font-sans: var(--font-dm-sans);
   --font-serif: var(--font-dm-serif);
+  --animate-point-right: point-right 1.5s ease-in-out infinite;
+}
+
+@keyframes point-right {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
+}
+
+@keyframes dot-wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
 }
 
 body {
@@ -18,4 +29,124 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-sans), sans-serif;
   overflow-x: hidden;
+}
+
+html,
+body {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.custom-scrollbar {
+  position: fixed;
+  inset: 8px 4px 8px auto;
+  z-index: 60;
+  width: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  opacity: 0;
+  touch-action: none;
+  transition: opacity 180ms ease;
+}
+
+.custom-scrollbar[data-visible="true"] {
+  opacity: 1;
+}
+
+.custom-scrollbar-track {
+  position: relative;
+  width: 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+.custom-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  min-height: 48px;
+  box-sizing: border-box;
+  background-color: #131720;
+  border: 0.5px solid rgba(133, 156, 224, 0.2);
+  border-radius: 999px;
+  cursor: default;
+  will-change: transform;
+}
+
+.custom-scrollbar-arrow {
+  display: flex;
+  width: 12px;
+  height: 10px;
+  flex: 0 0 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: rgba(133, 156, 224, 0.2);
+  background: transparent;
+  border: 0;
+  border-radius: 2px;
+  cursor: default;
+}
+
+.custom-scrollbar-arrow svg {
+  width: 10px;
+  height: 8px;
+}
+
+.custom-scrollbar-arrow-down svg {
+  transform: rotate(180deg);
+}
+
+.custom-scrollbar-arrow:focus-visible {
+  outline: 1px solid var(--color-muted);
+  outline-offset: 2px;
+}
+
+.custom-scrollbar-thumb:focus-visible {
+  outline: 1px solid var(--color-muted);
+  outline-offset: 2px;
+}
+
+html[data-scrollbar-dragging="true"] {
+  user-select: none;
+}
+
+@media (pointer: coarse) {
+  .custom-scrollbar {
+    right: 2px;
+    width: 6px;
+    pointer-events: none;
+  }
+
+  .custom-scrollbar-track {
+    width: 6px;
+  }
+
+  .custom-scrollbar-thumb {
+    width: 5px;
+  }
+
+  .custom-scrollbar-arrow {
+    width: 6px;
+  }
+
+  .custom-scrollbar-arrow svg {
+    width: 6px;
+    height: 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-scrollbar {
+    transition: none;
+  }
 }
