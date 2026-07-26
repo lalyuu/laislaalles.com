@@ -19,52 +19,60 @@ export default async function Projects() {
           Entenda como eu penso, crio e desenvolvo soluções usando a criatividade.
         </p>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {projects.map((project) => (
-            <Link
-              key={project.id}
-              href={`/projects/${project.id}`}
-              className="group relative rounded-2xl overflow-hidden bg-[#859ce024] hover:shadow-lg transition-all block"
-            >
-              {project.image && (
-                <div className="relative w-full h-[200px]">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                  />
+        <div className="relative">
+          <div className="grid md:grid-cols-2 gap-8 mb-12 pointer-events-none">
+            {projects.map((project) => (
+              <div key={project.id} className="rounded-2xl overflow-hidden blur-md relative">
+              <Link
+                href={`/projects/${project.id}`}
+                className="group relative rounded-2xl overflow-hidden bg-[#859ce024] hover:shadow-lg transition-all block"
+              >
+                {project.image && (
+                  <div className="relative w-full h-[200px]">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-7">
+                  <div className="flex flex-wrap gap-x-4 gap-y-1.5 mb-3">
+                    {project.tags.map((tag, i) => (
+                      <span key={tag} className="flex items-center gap-1.5 text-sm px-3 py-1 rounded-full bg-[rgba(133,156,224,0.17)]" style={{ color: "rgba(184, 197, 224, 0.6)" }}>
+                        <span
+                          className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                          style={{ backgroundColor: getTagColor(tag, i) }}
+                        />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-muted text-base mb-3 line-clamp-2">{project.description}</p>
+                  <time className="text-sm" style={{ color: "rgba(184, 197, 224, 0.48)" }}>{project.date}</time>
                 </div>
-              )}
-              <div className="p-7">
-                <div className="flex flex-wrap gap-x-4 gap-y-1.5 mb-3">
-                  {project.tags.map((tag, i) => (
-                    <span key={tag} className="flex items-center gap-1.5 text-sm px-3 py-1 rounded-full bg-[rgba(133,156,224,0.17)]" style={{ color: "rgba(184, 197, 224, 0.6)" }}>
-                      <span
-                        className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                        style={{ backgroundColor: getTagColor(tag, i) }}
-                      />
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted text-base mb-3 line-clamp-2">{project.description}</p>
-                <time className="text-sm" style={{ color: "rgba(184, 197, 224, 0.48)" }}>{project.date}</time>
+
+              </Link>
+                <div className="absolute inset-0 bg-background/60" />
               </div>
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/80 backdrop-blur-sm rounded-2xl border border-[rgba(133,156,224,0.3)]">
-                <h3 className="text-2xl md:text-3xl font-semibold text-foreground flex items-center gap-0.5">
-                  Em breve
-                  <span className="inline-block" style={{ animation: "dot-wave 1.4s ease-in-out 0s infinite" }}>.</span>
-                  <span className="inline-block" style={{ animation: "dot-wave 1.4s ease-in-out 0.15s infinite" }}>.</span>
-                  <span className="inline-block" style={{ animation: "dot-wave 1.4s ease-in-out 0.3s infinite" }}>.</span>
-                </h3>
-              </div>
-            </Link>
-          ))}
+            ))}
+          </div>
+
+          <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-auto">
+            <div className="bg-[#141722] rounded-2xl shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] px-6 py-4">
+              <span className="text-base font-light text-muted/60 flex items-center gap-0.5">
+                Em breve
+                <span className="inline-block" style={{ animation: "dot-wave 1.8s ease-in-out 0s infinite" }}>.</span>
+                <span className="inline-block" style={{ animation: "dot-wave 1.8s ease-in-out 0.15s infinite" }}>.</span>
+                <span className="inline-block" style={{ animation: "dot-wave 1.8s ease-in-out 0.3s infinite" }}>.</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -21,7 +21,7 @@
 
 @keyframes dot-wave {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
+  50% { transform: translateY(-2px); }
 }
 
 body {
@@ -30,3 +30,5 @@ body {
   font-family: var(--font-sans), sans-serif;
   overflow-x: hidden;
 }
+
+
