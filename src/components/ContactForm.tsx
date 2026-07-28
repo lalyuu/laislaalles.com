@@ -60,7 +60,7 @@ export default function ContactForm() {
         />
         <div className="text-right">
           <p className="text-muted/60 text-sm font-light">
-            *Tempo de resposta: +/- 24h
+            *Tempo de resposta aproximado: 24h
           </p>
         </div>
       </div>

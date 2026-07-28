@@ -82,6 +82,10 @@ body::-webkit-scrollbar {
   will-change: transform;
 }
 
+.custom-scrollbar-thumb:hover {
+  border-color: rgba(133, 156, 224, 0.5);
+}
+
 .custom-scrollbar-arrow {
   display: flex;
   width: 12px;
