@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import Reveal from "./Reveal";
 
 export default function About() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -86,7 +87,7 @@ export default function About() {
         style={{
           top: "50%",
           transform: gradientTransform,
-          background: "radial-gradient(circle, rgba(46, 56, 107, 0.18) 0%, transparent 70%)"
+          background: "radial-gradient(circle, rgba(46, 56, 107, 0.25) 0%, transparent 70%)"
         }}
         aria-hidden="true"
       />
@@ -95,132 +96,157 @@ export default function About() {
         style={{
           top: "50%",
           transform: gradientTransform,
-          background: "radial-gradient(circle, rgba(46, 56, 107, 0.18) 0%, transparent 70%)"
+          background: "radial-gradient(circle, rgba(46, 56, 107, 0.25) 0%, transparent 70%)"
         }}
         aria-hidden="true"
       />
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-[1fr_auto] gap-[124px]">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center gap-3">
-              <img src="/icons/User.svg" alt="" width={28} height={28} className="text-accent" />
-              Sobre mim
-            </h2>
+            <Reveal>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center gap-3">
+                <img src="/icons/User.svg" alt="" width={28} height={28} className="text-accent" />
+                Sobre mim
+              </h2>
+            </Reveal>
 
-            <p className="text-muted leading-relaxed mb-6">
-              Oi! Eu sou a Laísla Alles, formada em Design Gráfico, com 3 anos de experiência e apaixonada pelo meio audiovisual.
-            </p>
-            <p className="text-muted leading-relaxed mb-6">
-              Sou impulsionada pelo anseio de trazer vida a ideias através do movimento e transformá-las em narrativas visuais envolventes, que impactam, conectam e comunicam.
-            </p>
-            <p className="text-muted leading-relaxed mb-6">
-              Meu interesse pela área surgiu na adolescência, com a popularidade do YouTube, onde conheci mais sobre edição de vídeo e me encantei pelas possibilidades.
-            </p>
-            <p className="text-muted leading-relaxed mb-12">
-              Atualmente, busco aprofundar meus conhecimentos na área com foco na especialização em Motion Design.
-            </p>
+            <Reveal delay={80}>
+              <p className="text-muted leading-relaxed mb-6">
+                Oi! Eu sou a Laísla Alles, formada em Design Gráfico, com 3 anos de experiência e apaixonada pelo meio audiovisual.
+              </p>
+              <p className="text-muted leading-relaxed mb-6">
+                Sou impulsionada pelo anseio de trazer vida a ideias através do movimento e transformá-las em narrativas visuais envolventes, que impactam, conectam e comunicam.
+              </p>
+              <p className="text-muted leading-relaxed mb-6">
+                Meu interesse pela área surgiu na adolescência, com a popularidade do YouTube, onde conheci mais sobre edição de vídeo e me encantei pelas possibilidades.
+              </p>
+              <p className="text-muted leading-relaxed mb-12">
+                Atualmente, busco aprofundar meus conhecimentos na área com foco na especialização em Motion Design.
+              </p>
+            </Reveal>
 
-            <div className="flex gap-4">
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2 bg-cta text-white rounded-full hover:bg-cta/90 transition-colors flex items-center gap-2"
-              >
-                <img src="/icons/Download.svg" alt="" width={18} height={18} />
-                Currículo
-              </a>
-              <a
-                href="#contato"
-                className="px-6 py-2 border border-border rounded-full text-foreground hover:bg-cta hover:text-white transition-colors flex items-center gap-2"
-              >
-                <img src="/icons/Chat.svg" alt="" width={18} height={18} />
-                Fale comigo!
-              </a>
+            <Reveal delay={160}>
+              <div className="flex gap-4">
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 bg-cta text-white rounded-full hover:bg-cta/90 transition-colors flex items-center gap-2"
+                >
+                  <img src="/icons/Download.svg" alt="" width={18} height={18} />
+                  Currículo
+                </a>
+                <a
+                  href="#contato"
+                  className="px-6 py-2 border border-border rounded-full text-foreground hover:bg-[#14171f] transition-colors flex items-center gap-2"
+                >
+                  <img src="/icons/Chat.svg" alt="" width={18} height={18} />
+                  Fale comigo!
+                </a>
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal delay={120}>
+            <div className="flex items-center justify-center w-[405px] h-[535px] bg-accent/10 rounded-2xl overflow-hidden shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
+              <Image src="/assets/Foto-perfil.jpg" alt="Foto de perfil da Laísla Alles" width={640} height={800} quality={100} className="w-full h-full object-cover" />
             </div>
-          </div>
-
-          <div className="flex items-center justify-center w-[405px] h-[535px] bg-accent/10 rounded-2xl overflow-hidden shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
-            <Image src="/assets/Foto-perfil.jpg" alt="Foto de perfil da Laísla Alles" width={640} height={800} quality={100} className="w-full h-full object-cover" />
-          </div>
+          </Reveal>
         </div>
 
         <div className="mt-24">
-          <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
-            <img src="/icons/Pen-Tool.svg" alt="" width={22} height={22} className="text-accent" />
-            Ferramentas
-          </h3>
-          <div className="p-4 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
-            <div 
-              className="flex flex-wrap gap-10 items-center justify-center"
-              onMouseMove={(e) => {
-                const container = e.currentTarget;
-                const icons = container.querySelectorAll<HTMLElement>("[data-icon]");
-                let closest = 0;
-                let minDist = Infinity;
-                icons.forEach((icon) => {
-                  const rect = icon.getBoundingClientRect();
-                  const centerX = rect.left + rect.width / 2;
-                  const dist = Math.abs(e.clientX - centerX);
-                  if (dist < minDist) {
-                    minDist = dist;
-                    closest = parseInt(icon.dataset.icon || "0");
-                  }
-                });
-                setHoveredIndex(closest);
-              }}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              {ferramentas.map((ferramenta, index) => (
+            <Reveal>
+              <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
+                <img src="/icons/Pen-Tool.svg" alt="" width={22} height={22} className="text-accent" />
+                Ferramentas
+              </h3>
+            </Reveal>
+            <Reveal delay={60}>
+              <div className="p-4 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
                 <div 
-                  key={ferramenta.nome} 
-                  className="flex flex-col items-center gap-1"
-                  data-icon={index}
-                  style={{
-                    transform: `perspective(500px) scale(${getScale(index)})`,
-                    transition: "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-                    transformOrigin: "center bottom"
+                  className="flex flex-wrap gap-10 items-center justify-center"
+                  onMouseMove={(e) => {
+                    const container = e.currentTarget;
+                    const icons = container.querySelectorAll<HTMLElement>("[data-icon]");
+                    let closest = 0;
+                    let minDist = Infinity;
+                    icons.forEach((icon) => {
+                      const rect = icon.getBoundingClientRect();
+                      const centerX = rect.left + rect.width / 2;
+                      const dist = Math.abs(e.clientX - centerX);
+                      if (dist < minDist) {
+                        minDist = dist;
+                        closest = parseInt(icon.dataset.icon || "0");
+                      }
+                    });
+                    setHoveredIndex(closest);
                   }}
+                  onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <img src={ferramenta.icone} alt={ferramenta.nome} className="w-12 h-12 text-muted" />
-                  <span className="text-xs text-muted">{ferramenta.nome}</span>
+                  {ferramentas.map((ferramenta, index) => (
+                    <Reveal key={ferramenta.nome} delay={index * 60}>
+                      <div 
+                        className="flex flex-col items-center gap-1"
+                        data-icon={index}
+                        style={{
+                          transform: `perspective(500px) scale(${getScale(index)})`,
+                          transition: "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                          transformOrigin: "center bottom"
+                        }}
+                      >
+                        <img src={ferramenta.icone} alt={ferramenta.nome} className="w-12 h-12 text-muted" />
+                        <span className="text-xs text-muted">{ferramenta.nome}</span>
+                      </div>
+                    </Reveal>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            </Reveal>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mt-8 items-stretch">
           <div className="flex flex-col h-full">
-            <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
-              <img src="/icons/Notebook.svg" alt="" width={22} height={22} className="text-accent" />
-              Competências
-            </h3>
-            <div className="py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
-              <ul>
-                {competencias.map((item) => (
-                  <li key={item} className="text-muted">
-                    <span className="mr-3">•</span>{item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Reveal>
+              <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
+                <img src="/icons/Notebook.svg" alt="" width={22} height={22} className="text-accent" />
+                Competências
+              </h3>
+            </Reveal>
+            <Reveal className="flex-1" delay={40}>
+              <div className="h-full py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
+                <Reveal group>
+                  <ul>
+                    {competencias.map((item, i) => (
+                      <li key={item} className="text-muted reveal-item" style={{ transitionDelay: `${i * 60}ms` }}>
+                        <span className="mr-3 text-[13px] font-extralight tabular-nums text-muted/40">{String(i + 1).padStart(2, "0")}.</span>{item}
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+              </div>
+            </Reveal>
           </div>
 
           <div className="flex flex-col h-full">
-            <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
-              <img src="/icons/Target.svg" alt="" width={22} height={22} className="text-accent" />
-              Habilidades pessoais
-            </h3>
-            <div className="py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
-              <ul>
-                {habilidades.map((item) => (
-                  <li key={item} className="text-muted">
-                    <span className="mr-3">•</span>{item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Reveal>
+              <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
+                <img src="/icons/Target.svg" alt="" width={22} height={22} className="text-accent" />
+                Habilidades pessoais
+              </h3>
+            </Reveal>
+            <Reveal className="flex-1" delay={40}>
+              <div className="h-full py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
+                <Reveal group>
+                  <ul>
+                    {habilidades.map((item, i) => (
+                      <li key={item} className="text-muted reveal-item" style={{ transitionDelay: `${i * 60}ms` }}>
+                        <span className="mr-3 text-[13px] font-extralight tabular-nums text-muted/40">{String(i + 1).padStart(2, "0")}.</span>{item}
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>
