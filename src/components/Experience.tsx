@@ -167,7 +167,10 @@ export default function Experience() {
             ))}
           </div>
 
-          <div className="md:col-span-5 relative md:pl-12 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-gradient-to-b before:from-transparent before:via-[rgba(133,156,224,0.25)] before:to-transparent">
+          <div className="md:col-span-5 relative md:pl-12">
+            <Reveal className="absolute left-0 top-0 bottom-0 w-px" delay={80}>
+              <div className="w-px h-full bg-gradient-to-b from-transparent via-[rgba(133,156,224,0.25)] to-transparent" />
+            </Reveal>
             <div
               className="absolute right-[-450px] top-[-300px] w-[900px] h-[900px] rounded-full pointer-events-none z-0"
               style={{ background: "radial-gradient(circle, rgba(46, 56, 107, 0.24) 0%, transparent 70%)" }}

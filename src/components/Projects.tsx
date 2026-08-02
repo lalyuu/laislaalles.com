@@ -71,14 +71,16 @@ export default async function Projects() {
           </div>
 
           <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-auto">
-            <div className="bg-[#14171f] rounded-2xl shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] px-6 py-4">
-              <span className="text-base font-light text-muted/60 flex items-center gap-0.5">
-                Em breve
-                <span className="inline-block" style={{ animation: "dot-wave 1.8s ease-in-out 0s infinite" }}>.</span>
-                <span className="inline-block" style={{ animation: "dot-wave 1.8s ease-in-out 0.15s infinite" }}>.</span>
-                <span className="inline-block" style={{ animation: "dot-wave 1.8s ease-in-out 0.3s infinite" }}>.</span>
-              </span>
-            </div>
+            <Reveal delay={200}>
+              <div className="bg-[#14171f] rounded-2xl shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] px-6 py-4">
+                <span className="text-base font-light text-muted/60 flex items-center gap-0.5">
+                  Em breve
+                  <span className="inline-block" style={{ animation: "dot-wave 1.8s ease-in-out 0s infinite" }}>.</span>
+                  <span className="inline-block" style={{ animation: "dot-wave 1.8s ease-in-out 0.15s infinite" }}>.</span>
+                  <span className="inline-block" style={{ animation: "dot-wave 1.8s ease-in-out 0.3s infinite" }}>.</span>
+                </span>
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>

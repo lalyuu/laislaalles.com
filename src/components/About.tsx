@@ -6,6 +6,11 @@ import Reveal from "./Reveal";
 
 export default function About() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const photoCardRef = useRef<HTMLDivElement>(null);
+  const photoTarget = useRef({ x: 0, y: 0 });
+  const photoCurrent = useRef({ x: 0, y: 0 });
+  const photoRaf = useRef<number | null>(null);
+  const photoEnabled = useRef(true);
 
   const competencias = [
     "Captação de vídeo",
@@ -49,6 +54,15 @@ export default function About() {
     if (distance === 2) return 1.05;
     return 1;
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      photoEnabled.current = false;
+    }
+    return () => {
+      if (photoRaf.current != null) cancelAnimationFrame(photoRaf.current);
+    };
+  }, []);
 
   useEffect(() => {
     let rafId: number;
@@ -148,8 +162,43 @@ export default function About() {
           </div>
 
           <Reveal delay={120}>
-            <div className="flex items-center justify-center w-[405px] h-[535px] bg-accent/10 rounded-2xl overflow-hidden shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
-              <Image src="/assets/Foto-perfil.jpg" alt="Foto de perfil da Laísla Alles" width={640} height={800} quality={100} className="w-full h-full object-cover" />
+            <div
+              className="w-[405px] h-[535px]"
+              onMouseMove={(e) => {
+                if (!photoEnabled.current) return;
+                const rect = e.currentTarget.getBoundingClientRect();
+                photoTarget.current.x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
+                photoTarget.current.y = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
+                if (photoRaf.current == null) {
+                  const loop = () => {
+                    const c = photoCurrent.current;
+                    const t = photoTarget.current;
+                    c.x += (t.x - c.x) * 0.04;
+                    c.y += (t.y - c.y) * 0.04;
+                    if (photoCardRef.current) {
+                      photoCardRef.current.style.transform = `translate3d(${c.x}px, ${c.y}px, 0)`;
+                    }
+                    if (Math.abs(c.x - t.x) < 0.1 && Math.abs(c.y - t.y) < 0.1) {
+                      photoRaf.current = null;
+                      return;
+                    }
+                    photoRaf.current = requestAnimationFrame(loop);
+                  };
+                  photoRaf.current = requestAnimationFrame(loop);
+                }
+              }}
+              onMouseLeave={() => {
+                if (!photoEnabled.current) return;
+                photoTarget.current.x = 0;
+                photoTarget.current.y = 0;
+              }}
+            >
+              <div
+                ref={photoCardRef}
+                className="flex items-center justify-center w-full h-full bg-accent/10 rounded-[24px] overflow-hidden outline outline-[0.5px] outline-offset-[4px] outline-[rgba(133,156,224,0.4)] will-change-transform"
+              >
+                <Image src="/assets/foto-perfil2.png" alt="Foto de perfil da Laísla Alles" width={640} height={800} quality={100} className="w-full h-full object-cover" />
+              </div>
             </div>
           </Reveal>
         </div>
