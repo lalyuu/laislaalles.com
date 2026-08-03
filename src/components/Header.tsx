@@ -15,21 +15,31 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
-    const sections = NAV_ITEMS.map((item) => document.querySelector(item.href)).filter(Boolean) as Element[];
+    const handleScroll = () => {
+      const documentHeight = document.documentElement.scrollHeight;
+      const atBottom = window.scrollY + window.innerHeight >= documentHeight - 2;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(`#${entry.target.id}`);
+      let current = "";
+      if (atBottom) {
+        const labeled = NAV_ITEMS.filter((item) => item.label);
+        current = labeled[labeled.length - 1]?.href ?? "";
+      } else {
+        const trigger = window.scrollY + window.innerHeight * 0.5;
+        for (const item of NAV_ITEMS) {
+          const section = document.querySelector(item.href) as HTMLElement | null;
+          if (!section) continue;
+          if (section.offsetTop <= trigger) {
+            current = item.href;
           }
-        });
-      },
-      { threshold: 0.3 },
-    );
+        }
+      }
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+      setActiveSection(current === "#hero" ? "" : current);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -44,10 +54,10 @@ export default function Header() {
             <a
               key={href}
               href={href}
-              className={`text-sm transition-colors px-4 py-1.5 rounded-full border border-[rgba(133,156,224,0.3)] ${
+              className={`text-sm transition-all duration-300 px-4 py-1.5 rounded-full border text-muted ${
                 activeSection === href
-                  ? "bg-[rgba(133,156,224,0.08)] text-foreground"
-                  : "bg-[rgba(133,156,224,0.04)] text-muted hover:text-foreground hover:bg-[rgba(133,156,224,0.06)]"
+                  ? "bg-[rgba(133,156,224,0.08)] border-[rgba(133,156,224,0.5)] scale-105"
+                  : "bg-[rgba(133,156,224,0.04)] border-[rgba(133,156,224,0.3)] hover:border-[rgba(133,156,224,0.5)]"
               }`}
             >
               {label}

@@ -50,8 +50,14 @@ export default function Hero() {
         textRef.current.style.opacity = String(1 - progress);
       }
     };
+
+    const raf = window.requestAnimationFrame(handleScroll);
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
@@ -88,7 +94,7 @@ export default function Hero() {
         }}
         aria-hidden="true"
       />
-      <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center pt-20">
+      <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center pt-20 opacity-0">
         <div className="max-w-6xl mx-auto px-6 text-left relative z-10">
             <Image src="/icons/Simbolos.svg" alt="" width={72} height={72} className="mb-6" />
           <h1 className="text-4xl md:text-6xl font-light text-white mb-4">
