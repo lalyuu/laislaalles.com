@@ -126,16 +126,16 @@ export default function About() {
 
             <Reveal delay={80}>
               <p className="text-muted leading-relaxed mb-6">
-                Oi! Eu sou a Laísla Alles, formada em Design Gráfico, com 3 anos de experiência e apaixonada pelo meio audiovisual.
+                Oi! Eu sou a Laísla Alles, formada em Design Gráfico, com 3 anos de experiência e apaixonada pelo audiovisual.
               </p>
               <p className="text-muted leading-relaxed mb-6">
-                Sou impulsionada pelo anseio de trazer vida a ideias através do movimento e transformá-las em narrativas visuais envolventes, que impactam, conectam e comunicam.
+                Nem sempre eu soube que queria trabalhar com design, mas sempre gostei de criar. Foi na adolescência, acompanhando a popularidade do YouTube e assistindo a horas e horas de vídeos que descobri a edição e encontrei um universo de possibilidades.
               </p>
               <p className="text-muted leading-relaxed mb-6">
-                Meu interesse pela área surgiu na adolescência, com a popularidade do YouTube, onde conheci mais sobre edição de vídeo e me encantei pelas possibilidades.
+                Hoje, meu trabalho transita entre o design, o motion e o audiovisual, sempre buscando desenvolver projetos que despertem interesse, curiosidade e tragam aquele brilho nos olhos de quem vê.
               </p>
               <p className="text-muted leading-relaxed mb-12">
-                Atualmente, busco aprofundar meus conhecimentos na área com foco na especialização em Motion Design.
+                No momento, busco aprofundar meus conhecimentos na área com foco na especialização em Motion Design, mas sempre curiosa para explorar novas formas de colocar minha criatividade em prática.
               </p>
             </Reveal>
 

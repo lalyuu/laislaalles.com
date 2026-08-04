@@ -16,15 +16,15 @@ export default function Footer() {
 
           <div className="flex flex-col items-end gap-4">
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-3 pr-4 border-r border-border">
-                <a href="https://api.whatsapp.com/send/?phone=555496971603&text=Ol%C3%A1%2C+vi+seu+portf%C3%B3lio+e+gostaria+de+conversar%21&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-foreground transition-colors">
-                  <Image src="/icons/WhatsApp.svg" alt="WhatsApp" width={20} height={20} />
+              <div className="flex items-center gap-2 pr-4 border-r border-border">
+                <a href="https://api.whatsapp.com/send/?phone=555496971603&text=Ol%C3%A1%2C+vi+seu+portf%C3%B3lio+e+gostaria+de+conversar%21&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" className="inline-flex text-muted hover:text-foreground transition-all duration-300 hover:scale-105">
+                  <Image src="/icons/WhatsApp.svg" alt="WhatsApp" width={24} height={24} />
                 </a>
-                <a href="https://www.instagram.com/designlaisla/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-foreground transition-colors">
-                  <Image src="/icons/Instagram.svg" alt="Instagram" width={20} height={20} />
+                <a href="https://www.instagram.com/designlaisla/" target="_blank" rel="noopener noreferrer" className="inline-flex text-muted hover:text-foreground transition-all duration-300 hover:scale-105">
+                  <Image src="/icons/Instagram.svg" alt="Instagram" width={24} height={24} />
                 </a>
-                <a href="https://www.linkedin.com/in/laisla-alles/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-foreground transition-colors">
-                  <Image src="/icons/LinkedIn.svg" alt="LinkedIn" width={20} height={20} />
+                <a href="https://www.linkedin.com/in/laisla-alles/" target="_blank" rel="noopener noreferrer" className="inline-flex text-muted hover:text-foreground transition-all duration-300 hover:scale-105">
+                  <Image src="/icons/LinkedIn.svg" alt="LinkedIn" width={24} height={24} />
                 </a>
               </div>
 
