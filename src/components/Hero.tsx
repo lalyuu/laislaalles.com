@@ -13,6 +13,7 @@ const longestTerm = terms.reduce((a, b) => a.length > b.length ? a : b, "");
 
 export default function Hero() {
   const textRef = useRef<HTMLDivElement>(null);
+  const hasUserScrolled = useRef(false);
   const [currentTermIndex, setCurrentTermIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -43,42 +44,70 @@ export default function Hero() {
   }, [currentText, isDeleting, currentTermIndex]);
 
   useLayoutEffect(() => {
-    const applyScrollEffect = (applyOpacity: boolean) => {
+    const isMobile = window.innerWidth < 768;
+
+    const applyScrollEffect = () => {
       if (!textRef.current) return;
+      if (isMobile && !hasUserScrolled.current) return;
 
       const progress = Math.min(1, (window.scrollY / window.innerHeight) * 2);
       textRef.current.style.transform = `translateY(-${progress * 60}px)`;
 
-      if (window.innerWidth >= 768) {
-        textRef.current.style.opacity = String(1 - progress);
-        return;
+      if (isMobile) {
+        const hero = document.getElementById("hero");
+        const projects = document.getElementById("projetos");
+        if (hero && projects) {
+          const heroHeight = hero.getBoundingClientRect().height;
+          if (heroHeight > 0) {
+            const top = projects.getBoundingClientRect().top;
+            textRef.current.style.transition = "none";
+            if (window.scrollY <= 1 || top >= heroHeight - 1) {
+              textRef.current.style.opacity = "1";
+            } else {
+              const opacity = Math.min(1, Math.max(0, (top * 2) / heroHeight - 1));
+              textRef.current.style.opacity = String(opacity);
+            }
+            return;
+          }
+        }
       }
 
-      if (!applyOpacity) {
-        textRef.current.style.opacity = "1";
-        return;
-      }
-
-      const projects = document.getElementById("projetos");
-      if (!projects) {
-        textRef.current.style.opacity = "1";
-        return;
-      }
-
-      const vh = window.innerHeight;
-      const top = projects.getBoundingClientRect().top;
-      let opacity = 1;
-      if (top <= vh * 0.3) {
-        opacity = Math.max(0, 1 - (vh * 0.3 - top) / (vh * 0.15));
-      }
-      textRef.current.style.opacity = String(opacity);
+      textRef.current.style.opacity = String(1 - progress);
     };
 
-    applyScrollEffect(false);
+    const markUserScrolled = () => {
+      hasUserScrolled.current = true;
+    };
 
-    const onScroll = () => applyScrollEffect(true);
+    applyScrollEffect();
+
+    const onScroll = () => applyScrollEffect();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    let settleTimeout: ReturnType<typeof setTimeout> | null = null;
+    const onScrollSettled = () => applyScrollEffect();
+    const onScrollDebounced = () => {
+      if (settleTimeout !== null) clearTimeout(settleTimeout);
+      settleTimeout = setTimeout(onScrollSettled, 150);
+    };
+
+    if (isMobile) {
+      window.addEventListener("wheel", markUserScrolled, { passive: true });
+      window.addEventListener("pointerdown", markUserScrolled, { passive: true });
+      window.addEventListener("keydown", markUserScrolled);
+      window.addEventListener("scrollend", onScrollSettled, { passive: true });
+      window.addEventListener("scroll", onScrollDebounced, { passive: true });
+    }
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (settleTimeout !== null) clearTimeout(settleTimeout);
+      window.removeEventListener("wheel", markUserScrolled);
+      window.removeEventListener("pointerdown", markUserScrolled);
+      window.removeEventListener("keydown", markUserScrolled);
+      window.removeEventListener("scrollend", onScrollSettled);
+      window.removeEventListener("scroll", onScrollDebounced);
+    };
   }, []);
 
   return (
