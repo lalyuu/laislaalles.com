@@ -7,7 +7,7 @@ export default async function Projects() {
   const projects = await getProjects();
 
   return (
-    <section id="projetos" className="relative z-10 bg-background -mt-screen py-24 rounded-t-[48px] overflow-hidden
+    <section id="projetos" className="relative z-10 bg-background mt-0 py-24 rounded-t-[48px] overflow-hidden
       before:content-['']
       before:absolute before:top-0 before:left-0 before:w-full before:h-px
       before:bg-[rgba(133,156,224,0.15)]">

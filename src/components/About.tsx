@@ -115,7 +115,7 @@ export default function About() {
         aria-hidden="true"
       />
       <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-[1fr_auto] gap-[124px]">
+        <div className="grid md:grid-cols-[1fr_auto] gap-16 md:gap-[124px]">
           <div>
             <Reveal>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center gap-3">
@@ -140,7 +140,7 @@ export default function About() {
             </Reveal>
 
             <Reveal delay={160}>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 <a
                   href="#"
                   target="_blank"
@@ -163,7 +163,7 @@ export default function About() {
 
           <Reveal delay={120}>
             <div
-              className="w-[405px] h-[535px]"
+              className="w-full max-w-[405px] aspect-[405/535]"
               onMouseMove={(e) => {
                 if (!photoEnabled.current) return;
                 const rect = e.currentTarget.getBoundingClientRect();

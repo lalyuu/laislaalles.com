@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 
 const terms = [
@@ -42,26 +42,47 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [currentText, isDeleting, currentTermIndex]);
 
-  useEffect(() => {
-    const handleScroll = () => {
+  useLayoutEffect(() => {
+    const applyScrollEffect = (applyOpacity: boolean) => {
+      if (!textRef.current) return;
+
       const progress = Math.min(1, (window.scrollY / window.innerHeight) * 2);
-      if (textRef.current) {
-        textRef.current.style.transform = `translateY(-${progress * 60}px)`;
+      textRef.current.style.transform = `translateY(-${progress * 60}px)`;
+
+      if (window.innerWidth >= 768) {
         textRef.current.style.opacity = String(1 - progress);
+        return;
       }
+
+      if (!applyOpacity) {
+        textRef.current.style.opacity = "1";
+        return;
+      }
+
+      const projects = document.getElementById("projetos");
+      if (!projects) {
+        textRef.current.style.opacity = "1";
+        return;
+      }
+
+      const vh = window.innerHeight;
+      const top = projects.getBoundingClientRect().top;
+      let opacity = 1;
+      if (top <= vh * 0.3) {
+        opacity = Math.max(0, 1 - (vh * 0.3 - top) / (vh * 0.15));
+      }
+      textRef.current.style.opacity = String(opacity);
     };
 
-    const raf = window.requestAnimationFrame(handleScroll);
+    applyScrollEffect(false);
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.cancelAnimationFrame(raf);
-    };
+    const onScroll = () => applyScrollEffect(true);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <section id="hero" className="h-screen sticky top-0 z-0 bg-background relative overflow-hidden">
+    <section id="hero" className="h-dvh sticky top-0 z-0 bg-background relative overflow-hidden">
       <div 
         className="absolute top-0 left-0 w-full h-[150%] opacity-[0.01] pointer-events-none"
         aria-hidden="true"
@@ -94,25 +115,28 @@ export default function Hero() {
         }}
         aria-hidden="true"
       />
-      <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center pt-20 opacity-0">
+      <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center pt-20 opacity-100 transition-opacity duration-500">
         <div className="max-w-6xl mx-auto px-6 text-left relative z-10">
             <Image src="/icons/Simbolos.svg" alt="" width={72} height={72} className="mb-6" />
-          <h1 className="text-4xl md:text-6xl font-light text-white mb-4">
-            Oi, eu sou a <span className="font-serif italic">Laísla Alles</span><span className="font-serif italic">,</span>
+          <h1 className="inline md:block text-[40px] md:text-6xl font-light text-white md:mb-4">
+            Oi, eu sou a{" "}
+            <br className="md:hidden" />
+            <span className="font-serif italic">Laísla Alles</span><span className="font-serif italic">,&nbsp;</span>
           </h1>
-          <p className="text-4xl md:text-6xl font-light text-white mb-8">
+          <p className="inline md:block text-[40px] md:text-6xl font-light text-white md:mb-8">
             sou{" "}
-            <span className="relative inline-block text-left">
-              <span className="font-serif italic text-[#3366FF] invisible" aria-hidden="true">
+            <br className="md:hidden" />
+            <span className="relative inline-block text-left max-w-full align-bottom">
+              <span className="font-serif italic text-[#3366FF] invisible select-none" aria-hidden="true">
                 {longestTerm}
               </span>
-              <span className="absolute left-0 top-0 whitespace-nowrap font-serif italic text-[#3366FF]">
+              <span className="absolute left-0 top-0 w-full whitespace-nowrap font-serif italic text-[#3366FF]">
                 {currentText}
                 <span className="animate-pulse font-thin scale-x-50 inline-block">|</span>
               </span>
             </span>
           </p>
-          <p className="text-lg md:text-xl text-white max-w-2xl font-light">
+          <p className="text-lg md:text-xl text-white max-w-2xl font-light mt-8 md:mt-0">
             E seja bem-vindo(a) ao meu portfólio!
           </p>
         </div>

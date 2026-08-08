@@ -35,7 +35,7 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-16 items-start">
           <Reveal className="md:order-2 md:col-span-2" delay={120}>
-            <div className="flex flex-col gap-6 relative md:pl-6 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-gradient-to-b before:from-transparent before:via-[rgba(133,156,224,0.25)] before:to-transparent">
+            <div className="flex flex-col gap-6 md:pl-6 md:before:absolute md:before:left-0 md:before:top-0 md:before:bottom-0 md:before:w-px md:before:bg-gradient-to-b md:before:from-transparent md:before:via-[rgba(133,156,224,0.25)] md:before:to-transparent">
             <h4 className="text-[#ebebeb] text-2xl font-bold leading-6">
               Outras opções de contato:
             </h4>
@@ -81,7 +81,7 @@ export default function Contact() {
           </div>
           </Reveal>
 
-          <Reveal className="md:order-1 md:col-span-3" delay={0}>
+          <Reveal className="-order-1 md:order-1 md:col-span-3" delay={0}>
             <div className="bg-[#14171f] p-8 rounded-2xl shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
               <ContactForm />
             </div>
