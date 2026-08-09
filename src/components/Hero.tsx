@@ -46,12 +46,32 @@ export default function Hero() {
   useLayoutEffect(() => {
     const isMobile = window.innerWidth < 768;
 
+    // Quando o texto está totalmente visível em repouso, os estilos inline de
+    // opacity/transform são REMOVIDOS (não apenas setados para "1"/"translateY(0px)").
+    // Uma vez que o JS aplica opacity/transform inline, o navegador promove o
+    // elemento para sua própria camada de composição da GPU, e o texto passa a
+    // renderizar com anti-aliasing em escala de cinza em vez de subpixel — ficando
+    // perceptivelmente menos nítido/brilhante mesmo com opacity:1, e essa troca
+    // persiste indefinidamente enquanto o inline style existir. Remover a
+    // propriedade devolve o elemento ao fluxo normal de pintura do CSS.
+    const setHeroVisualState = (el: HTMLDivElement, opacity: number, translateY: number) => {
+      if (opacity >= 1 && translateY === 0) {
+        el.style.removeProperty("opacity");
+        el.style.removeProperty("transform");
+        return;
+      }
+      el.style.opacity = String(opacity);
+      el.style.transform = `translateY(-${translateY}px)`;
+    };
+
     const applyScrollEffect = () => {
       if (!textRef.current) return;
       if (isMobile && !hasUserScrolled.current) return;
 
+      textRef.current.style.transition = "none";
+
       const progress = Math.min(1, (window.scrollY / window.innerHeight) * 2);
-      textRef.current.style.transform = `translateY(-${progress * 60}px)`;
+      const translateY = progress * 60;
 
       if (isMobile) {
         const hero = document.getElementById("hero");
@@ -60,32 +80,50 @@ export default function Hero() {
           const heroHeight = hero.getBoundingClientRect().height;
           if (heroHeight > 0) {
             const top = projects.getBoundingClientRect().top;
-            textRef.current.style.transition = "none";
-            if (window.scrollY <= 1 || top >= heroHeight - 1) {
-              textRef.current.style.opacity = "1";
+            // O scroll por toque tem inércia: mesmo depois que o dedo já soltou,
+            // a página ainda desliza mais alguns pixels perto do topo. Como a
+            // fórmula abaixo é bem íngreme nessa região, esse resquício de
+            // inércia gera uma opacidade visivelmente abaixo de 100% por um
+            // instante. Uma margem generosa evita esse "flash" perto do topo.
+            const topRestThreshold = heroHeight * 0.08;
+            if (window.scrollY <= topRestThreshold || top >= heroHeight - topRestThreshold) {
+              setHeroVisualState(textRef.current, 1, 0);
             } else {
               const opacity = Math.min(1, Math.max(0, (top * 2) / heroHeight - 1));
-              textRef.current.style.opacity = String(opacity);
+              setHeroVisualState(textRef.current, opacity, translateY);
             }
             return;
           }
         }
       }
 
-      textRef.current.style.opacity = String(1 - progress);
+      setHeroVisualState(textRef.current, 1 - progress, translateY);
     };
 
     const markUserScrolled = () => {
       hasUserScrolled.current = true;
     };
 
+    // Escrever no style a cada evento de "scroll" (que pode disparar dezenas de
+    // vezes por frame) pode dessincronizar a camada de composição do elemento
+    // do estado real do DOM. Agendar via requestAnimationFrame garante no
+    // máximo uma escrita por frame, alinhada ao ciclo de repaint do navegador.
+    let rafId: number | null = null;
+    const scheduleApply = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
+        applyScrollEffect();
+      });
+    };
+
     applyScrollEffect();
 
-    const onScroll = () => applyScrollEffect();
+    const onScroll = () => scheduleApply();
     window.addEventListener("scroll", onScroll, { passive: true });
 
     let settleTimeout: ReturnType<typeof setTimeout> | null = null;
-    const onScrollSettled = () => applyScrollEffect();
+    const onScrollSettled = () => scheduleApply();
     const onScrollDebounced = () => {
       if (settleTimeout !== null) clearTimeout(settleTimeout);
       settleTimeout = setTimeout(onScrollSettled, 150);
@@ -99,14 +137,24 @@ export default function Hero() {
       window.addEventListener("scroll", onScrollDebounced, { passive: true });
     }
 
+    // O toolbar do navegador mobile expande/recolhe durante o scroll, mudando a
+    // altura real da viewport (100dvh) depois que o último evento de scroll já
+    // disparou. Sem isso, a opacidade calculada com a geometria antiga fica
+    // "presa" e não volta a 100% ao chegar no topo.
+    window.addEventListener("resize", onScrollSettled);
+    window.visualViewport?.addEventListener("resize", onScrollSettled);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
       if (settleTimeout !== null) clearTimeout(settleTimeout);
       window.removeEventListener("wheel", markUserScrolled);
       window.removeEventListener("pointerdown", markUserScrolled);
       window.removeEventListener("keydown", markUserScrolled);
       window.removeEventListener("scrollend", onScrollSettled);
       window.removeEventListener("scroll", onScrollDebounced);
+      window.removeEventListener("resize", onScrollSettled);
+      window.visualViewport?.removeEventListener("resize", onScrollSettled);
     };
   }, []);
 
@@ -144,7 +192,7 @@ export default function Hero() {
         }}
         aria-hidden="true"
       />
-      <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center pt-20 opacity-100 transition-opacity duration-500">
+      <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center pt-20 opacity-100">
         <div className="max-w-6xl mx-auto px-6 text-left relative z-10">
             <Image src="/icons/Simbolos.svg" alt="" width={72} height={72} className="mb-6" />
           <h1 className="inline md:block text-[40px] md:text-6xl font-light text-white md:mb-4">
