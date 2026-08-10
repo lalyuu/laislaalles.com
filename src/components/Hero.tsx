@@ -195,12 +195,12 @@ export default function Hero() {
       <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center pt-20 opacity-100">
         <div className="max-w-6xl mx-auto px-6 text-left relative z-10">
             <Image src="/icons/Simbolos.svg" alt="" width={72} height={72} className="mb-6" />
-          <h1 className="inline md:block text-[40px] md:text-6xl font-light text-white md:mb-4">
+          <h1 className="inline md:block text-[40px] md:text-6xl font-light text-white leading-[48px] md:leading-none md:mb-4">
             Oi, eu sou a{" "}
             <br className="md:hidden" />
             <span className="font-serif italic">Laísla Alles</span><span className="font-serif italic">,&nbsp;</span>
           </h1>
-          <p className="inline md:block text-[40px] md:text-6xl font-light text-white md:mb-8">
+          <p className="inline md:block text-[40px] md:text-6xl font-light text-white leading-[48px] md:leading-none md:mb-8">
             sou{" "}
             <br className="md:hidden" />
             <span className="relative inline-block text-left max-w-full align-bottom">

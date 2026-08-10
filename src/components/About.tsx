@@ -115,53 +115,15 @@ export default function About() {
         aria-hidden="true"
       />
       <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-[1fr_auto] gap-16 md:gap-[124px]">
-          <div>
-            <Reveal>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center gap-3">
-                <img src="/icons/User.svg" alt="" width={28} height={28} className="text-accent" />
-                Sobre mim
-              </h2>
-            </Reveal>
+        <div className="grid gap-x-8 gap-y-6 md:grid-cols-[1fr_auto] md:gap-x-[124px] md:items-start">
+          <Reveal className="md:col-start-1 md:row-start-1">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
+              <img src="/icons/User.svg" alt="" width={28} height={28} className="text-accent" />
+              Sobre mim
+            </h2>
+          </Reveal>
 
-            <Reveal delay={80}>
-              <p className="text-muted leading-relaxed mb-6">
-                Oi! Eu sou a Laísla Alles, formada em Design Gráfico, com 3 anos de experiência e apaixonada pelo audiovisual.
-              </p>
-              <p className="text-muted leading-relaxed mb-6">
-                Nem sempre eu soube que queria trabalhar com design, mas sempre gostei de criar. Foi na adolescência, acompanhando a popularidade do YouTube e assistindo a horas e horas de vídeos que descobri a edição e encontrei um universo de possibilidades.
-              </p>
-              <p className="text-muted leading-relaxed mb-6">
-                Hoje, meu trabalho transita entre o design, o motion e o audiovisual, sempre buscando desenvolver projetos que despertem interesse, curiosidade e tragam aquele brilho nos olhos de quem vê.
-              </p>
-              <p className="text-muted leading-relaxed mb-12">
-                No momento, busco aprofundar meus conhecimentos na área com foco na especialização em Motion Design, mas sempre curiosa para explorar novas formas de colocar minha criatividade em prática.
-              </p>
-            </Reveal>
-
-            <Reveal delay={160}>
-              <div className="flex flex-wrap gap-4">
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-2 bg-cta text-white rounded-full hover:bg-cta/90 transition-colors flex items-center gap-2"
-                >
-                  <img src="/icons/Download.svg" alt="" width={18} height={18} />
-                  Currículo
-                </a>
-                <a
-                  href="#contato"
-                  className="px-6 py-2 border border-border rounded-full text-foreground hover:bg-[#14171f] transition-colors flex items-center gap-2"
-                >
-                  <img src="/icons/Chat.svg" alt="" width={18} height={18} />
-                  Fale comigo!
-                </a>
-              </div>
-            </Reveal>
-          </div>
-
-          <Reveal delay={120}>
+          <Reveal className="md:col-start-2 md:row-start-1 md:row-span-2" delay={120}>
             <div
               className="w-full max-w-[405px] aspect-[405/535]"
               onMouseMove={(e) => {
@@ -201,6 +163,44 @@ export default function About() {
               </div>
             </div>
           </Reveal>
+
+          <div className="md:col-start-1 md:row-start-2 mt-4 md:mt-0">
+            <Reveal delay={80}>
+              <p className="text-muted leading-relaxed mb-6">
+                Oi! Eu sou a Laísla Alles, formada em Design Gráfico, com 3 anos de experiência e apaixonada pelo audiovisual.
+              </p>
+              <p className="text-muted leading-relaxed mb-6">
+                Nem sempre eu soube que queria trabalhar com design, mas sempre gostei de criar. Foi na adolescência, acompanhando a popularidade do YouTube e assistindo a horas e horas de vídeos que descobri a edição e encontrei um universo de possibilidades.
+              </p>
+              <p className="text-muted leading-relaxed mb-6">
+                Hoje, meu trabalho transita entre o design, o motion e o audiovisual, sempre buscando desenvolver projetos que despertem interesse, curiosidade e tragam aquele brilho nos olhos de quem vê.
+              </p>
+              <p className="text-muted leading-relaxed mb-12">
+                No momento, busco aprofundar meus conhecimentos na área com foco na especialização em Motion Design, mas sempre curiosa para explorar novas formas de colocar minha criatividade em prática.
+              </p>
+            </Reveal>
+
+            <Reveal delay={160}>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 bg-cta text-white rounded-full hover:bg-cta/90 transition-colors flex items-center gap-2"
+                >
+                  <img src="/icons/Download.svg" alt="" width={18} height={18} />
+                  Currículo
+                </a>
+                <a
+                  href="#contato"
+                  className="px-6 py-2 border border-border rounded-full text-foreground hover:bg-[#14171f] transition-colors flex items-center gap-2"
+                >
+                  <img src="/icons/Chat.svg" alt="" width={18} height={18} />
+                  Fale comigo!
+                </a>
+              </div>
+            </Reveal>
+          </div>
         </div>
 
         <div className="mt-24">

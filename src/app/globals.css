@@ -110,6 +110,12 @@ body::-webkit-scrollbar {
   opacity: 1;
 }
 
+@media (max-width: 767px) {
+  .custom-scrollbar {
+    display: none;
+  }
+}
+
 .custom-scrollbar-track {
   position: relative;
   width: 12px;

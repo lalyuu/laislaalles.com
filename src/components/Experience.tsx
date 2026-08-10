@@ -14,7 +14,7 @@ function ExpandedCard({ exp, active }: { exp: Experience; active: boolean }) {
           Atual
         </span>
       )}
-      <div className="flex items-start gap-6">
+      <div className="flex flex-col md:flex-row items-start gap-6">
         <div className={`w-[88px] h-[88px] rounded-xl flex items-center justify-center flex-shrink-0 shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] ${exp.logoSrc ? "relative overflow-hidden" : "bg-gradient-to-br from-accent/20 to-accent/5"}`}>
           {exp.logoSrc ? (
             <Image
