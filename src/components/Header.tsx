@@ -127,22 +127,9 @@ export default function Header() {
             onClick={() => setMenuOpen(true)}
             aria-label="Abrir menu"
             aria-expanded={menuOpen}
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full text-muted hover:text-foreground transition-colors"
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full text-foreground hover:text-foreground transition-all duration-300 bg-[rgba(133,156,224,0.04)] border border-[rgba(133,156,224,0.3)] hover:border-[rgba(133,156,224,0.5)]"
           >
-            <svg
-              viewBox="0 0 24 24"
-              width="22"
-              height="22"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.7"
-              strokeLinecap="round"
-              aria-hidden="true"
-            >
-              <path d="M4 7h16" />
-              <path d="M4 12h16" />
-              <path d="M4 17h16" />
-            </svg>
+            <Image src="/icons/menu-h.svg" alt="" width={18} height={12} />
           </button>
         </div>
       </header>
@@ -171,7 +158,7 @@ export default function Header() {
             type="button"
             onClick={handleNavClick}
             aria-label="Fechar menu"
-            className="inline-flex items-center justify-center w-10 h-10 rounded-full text-muted hover:text-foreground transition-colors"
+            className="inline-flex items-center justify-center w-10 h-10 rounded-full text-foreground transition-all duration-300 bg-[rgba(133,156,224,0.04)] border border-[rgba(133,156,224,0.3)]"
           >
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" aria-hidden="true">
               <path d="M6 6l12 12" />

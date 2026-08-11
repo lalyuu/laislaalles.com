@@ -3,8 +3,10 @@
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Reveal from "./Reveal";
+import { useIsMobile } from "@/lib/use-is-mobile";
 
 export default function About() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLDivElement>(null);
   const photoCardRef = useRef<HTMLDivElement>(null);
   const photoTarget = useRef({ x: 0, y: 0 });
@@ -65,6 +67,7 @@ export default function About() {
   }, []);
 
   useEffect(() => {
+    if (isMobile) return;
     let rafId: number;
 
     const handleScroll = () => {
@@ -88,7 +91,7 @@ export default function About() {
       window.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <section 
@@ -127,7 +130,7 @@ export default function About() {
             <div
               className="w-full max-w-[405px] aspect-[405/535]"
               onMouseMove={(e) => {
-                if (!photoEnabled.current) return;
+                if (isMobile || !photoEnabled.current) return;
                 const rect = e.currentTarget.getBoundingClientRect();
                 photoTarget.current.x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
                 photoTarget.current.y = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
@@ -150,7 +153,7 @@ export default function About() {
                 }
               }}
               onMouseLeave={() => {
-                if (!photoEnabled.current) return;
+                if (isMobile || !photoEnabled.current) return;
                 photoTarget.current.x = 0;
                 photoTarget.current.y = 0;
               }}
@@ -215,6 +218,7 @@ export default function About() {
                 <div 
                   className="flex flex-wrap gap-10 items-center justify-center"
                   onMouseMove={(e) => {
+                    if (isMobile) return;
                     const container = e.currentTarget;
                     const icons = container.querySelectorAll<HTMLElement>("[data-icon]");
                     let closest = 0;
@@ -230,7 +234,7 @@ export default function About() {
                     });
                     setHoveredIndex(closest);
                   }}
-                  onMouseLeave={() => setHoveredIndex(null)}
+                  onMouseLeave={() => { if (isMobile) return; setHoveredIndex(null); }}
                 >
                   {ferramentas.map((ferramenta, index) => (
                     <Reveal key={ferramenta.nome} delay={index * 60}>
@@ -238,8 +242,8 @@ export default function About() {
                         className="flex flex-col items-center gap-1"
                         data-icon={index}
                         style={{
-                          transform: `perspective(500px) scale(${getScale(index)})`,
-                          transition: "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                          transform: `perspective(500px) scale(${isMobile ? 1 : getScale(index)})`,
+                          transition: isMobile ? "none" : "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                           transformOrigin: "center bottom"
                         }}
                       >

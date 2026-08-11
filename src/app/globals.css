@@ -49,6 +49,16 @@
   transform: translateX(10px);
 }
 
+@media (max-width: 767px) {
+  .send-icon {
+    transition: none;
+  }
+
+  .group:hover .send-icon {
+    transform: none;
+  }
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(var(--reveal-y, 24px));

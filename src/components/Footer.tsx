@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="py-8 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-12">
-          <div className="flex flex-col gap-4 md:items-start items-center w-full md:w-auto">
+          <div className="flex flex-row items-center justify-between w-full gap-4 md:flex-col md:items-start md:justify-start md:w-auto">
             <img src="/assets/Logo.svg" alt="Laísla Alles" className="h-10 w-auto" />
             <p className="text-sm text-muted flex items-center gap-2">
               <span>© 2026</span>
