@@ -92,7 +92,7 @@ export default function Experience() {
   const [activeId, setActiveId] = useState<number>(experiences[0].id);
 
   return (
-    <section id="experiencia" className="relative z-0 py-24 bg-background overflow-hidden">
+    <section id="experiencia" className="relative z-0 py-16 md:py-24 bg-background overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <Reveal>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center gap-3">
@@ -107,7 +107,7 @@ export default function Experience() {
           </h2>
         </Reveal>
         <Reveal delay={60}>
-          <p className="text-muted mb-12">
+          <p className="text-muted mb-8">
             Ao longo dos últimos 3 anos, venho aprendendo, experimentando e evoluindo entre o design, o motion e o audiovisual.
             Cada projeto é uma oportunidade de descobrir novas formas de criar.
           </p>

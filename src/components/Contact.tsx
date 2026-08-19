@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 
 export default function Contact() {
   return (
-    <section id="contato" className="relative z-0 py-24 bg-background overflow-hidden
+    <section id="contato" className="relative z-0 py-16 md:py-24 bg-background overflow-hidden
       before:content-['']
       before:absolute before:top-0 before:left-0 before:w-full before:h-px
       before:bg-gradient-to-r before:from-transparent before:via-[rgba(133,156,224,0.25)] before:to-transparent">
@@ -28,6 +28,7 @@ export default function Contact() {
             <p className="text-muted">
               Se você chegou até aqui e acredita que meu trabalho pode contribuir com sua equipe, ficarei feliz em conversar!
               <br />
+              <br className="md:hidden" />
               No momento, procuro por vagas remotas em tempo integral, mas também estou aberta a oportunidades presenciais no RS.
             </p>
           </div>
@@ -82,7 +83,7 @@ export default function Contact() {
           </Reveal>
 
           <Reveal className="-order-1 md:order-1 md:col-span-3" delay={0}>
-            <div className="bg-[#14171f] p-8 rounded-2xl shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
+            <div className="bg-[#14171f] p-6 md:p-8 rounded-2xl shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
               <ContactForm />
             </div>
           </Reveal>

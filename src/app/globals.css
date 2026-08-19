@@ -49,6 +49,15 @@
   transform: translateX(10px);
 }
 
+.tools-carousel {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tools-carousel::-webkit-scrollbar {
+  display: none;
+}
+
 @media (max-width: 767px) {
   .send-icon {
     transition: none;

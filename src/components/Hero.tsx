@@ -173,7 +173,7 @@ export default function Hero() {
         />
       </div>
       <div 
-        className="absolute left-[-600px] w-[1200px] h-[1200px] rounded-full pointer-events-none"
+        className="absolute left-[-750px] w-[1200px] h-[1200px] rounded-full pointer-events-none"
         style={{
           top: "50%",
           transform: "translateY(-50%)",
@@ -183,7 +183,7 @@ export default function Hero() {
         aria-hidden="true"
       />
       <div 
-        className="absolute right-[-600px] w-[1200px] h-[1200px] rounded-full pointer-events-none"
+        className="absolute right-[-750px] w-[1200px] h-[1200px] rounded-full pointer-events-none"
         style={{
           top: "50%",
           transform: "translateY(-50%)",

@@ -22,7 +22,7 @@ export default function ContactForm() {
 
   return (
     <form action={action} className="flex flex-col gap-4 text-left">
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 mb-4">
         <p className="text-xl font-bold text-foreground flex items-center gap-2.5">
           <Image src="/icons/carta.svg" alt="" width={22} height={22} />
           Me envie uma mensagem!
@@ -32,33 +32,43 @@ export default function ContactForm() {
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="flex flex-col gap-1">
+          <label htmlFor="name" className="text-sm text-muted font-medium pl-4">Nome completo</label>
+          <input
+            name="name"
+            placeholder="Seu nome completo"
+            required
+            className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow"
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="email" className="text-sm text-muted font-medium pl-4">E-mail</label>
+          <input
+            name="email"
+            type="email"
+            placeholder="seu@email.com"
+            required
+            className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow"
+          />
+        </div>
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="subject" className="text-sm text-muted font-medium pl-4">Assunto</label>
         <input
-          name="name"
-          placeholder="Seu nome completo"
+          name="subject"
+          placeholder="Sobre o que gostaria de falar?"
           required
-          className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(184,197,224,0.8)] transition-shadow"
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="seu@email.com"
-          required
-          className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(184,197,224,0.8)] transition-shadow"
+          className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow"
         />
       </div>
-      <input
-        name="subject"
-        placeholder="Sobre o que gostaria de falar?"
-        required
-        className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(184,197,224,0.8)] transition-shadow"
-      />
       <div className="flex flex-col gap-2">
+        <label htmlFor="message" className="text-sm text-muted font-medium pl-4">Mensagem</label>
         <textarea
           name="message"
           placeholder="Descreva sua dúvida ou proposta…"
           required
           rows={7}
-          className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(184,197,224,0.8)] transition-shadow resize-none"
+          className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow resize-none"
         />
         <div className="text-right">
           <p className="text-muted/60 text-xs font-light">

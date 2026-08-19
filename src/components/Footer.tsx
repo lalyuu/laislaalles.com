@@ -12,13 +12,13 @@ export default function Footer() {
               <img src="/assets/Logo.svg" alt="Laísla Alles" className="h-10 w-auto" />
               <div className="flex items-center gap-3">
                 <a href="https://api.whatsapp.com/send/?phone=555496971603&text=Ol%C3%A1%2C+vi+seu+portf%C3%B3lio+e+gostaria+de+conversar%21&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" className="inline-flex text-muted hover:text-foreground transition-all duration-300 hover:scale-105">
-                  <Image src="/icons/WhatsApp.svg" alt="WhatsApp" width={24} height={24} />
+                  <Image src="/icons/WhatsApp.svg" alt="WhatsApp" width={26} height={26} />
                 </a>
                 <a href="https://www.instagram.com/designlaisla/" target="_blank" rel="noopener noreferrer" className="inline-flex text-muted hover:text-foreground transition-all duration-300 hover:scale-105">
-                  <Image src="/icons/Instagram.svg" alt="Instagram" width={24} height={24} />
+                  <Image src="/icons/Instagram.svg" alt="Instagram" width={26} height={26} />
                 </a>
                 <a href="https://www.linkedin.com/in/laisla-alles/" target="_blank" rel="noopener noreferrer" className="inline-flex text-muted hover:text-foreground transition-all duration-300 hover:scale-105">
-                  <Image src="/icons/LinkedIn.svg" alt="LinkedIn" width={24} height={24} />
+                  <Image src="/icons/LinkedIn.svg" alt="LinkedIn" width={26} height={26} />
                 </a>
               </div>
             </div>
