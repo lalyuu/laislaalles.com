@@ -2,9 +2,21 @@
 
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import Reveal from "./Reveal";
+import { useIsMobile } from "@/lib/use-is-mobile";
 
 export default function About() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLDivElement>(null);
+  const photoCardRef = useRef<HTMLDivElement>(null);
+  const photoTarget = useRef({ x: 0, y: 0 });
+  const photoCurrent = useRef({ x: 0, y: 0 });
+  const photoRaf = useRef<number | null>(null);
+  const photoEnabled = useRef(true);
+
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const competencias = [
     "Captação de vídeo",
@@ -43,13 +55,23 @@ export default function About() {
   const getScale = (index: number) => {
     if (hoveredIndex === null) return 1;
     const distance = Math.abs(hoveredIndex - index);
-    if (distance === 0) return 1.3;
-    if (distance === 1) return 1.15;
+    if (distance === 0) return 1.2;
+    if (distance === 1) return 1.1;
     if (distance === 2) return 1.05;
     return 1;
   };
 
   useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      photoEnabled.current = false;
+    }
+    return () => {
+      if (photoRaf.current != null) cancelAnimationFrame(photoRaf.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
     let rafId: number;
 
     const handleScroll = () => {
@@ -73,154 +95,275 @@ export default function About() {
       window.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [isMobile]);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!isMobile || !el) return;
+
+    const checkScroll = () => {
+      setCanScrollLeft(el.scrollLeft > 1);
+      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+    };
+
+    checkScroll();
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [isMobile]);
+
+  const scrollToDirection = (direction: "left" | "right") => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const amount = 200;
+    const left = direction === "left" ? el.scrollLeft - amount : el.scrollLeft + amount;
+    el.scrollTo({ left, behavior: "smooth" });
+  };
 
   return (
     <section 
       id="sobre" 
       ref={sectionRef}
-      className="py-24 bg-background relative z-0 overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-px before:bg-gradient-to-r before:from-transparent before:via-[rgba(133,156,224,0.15)] before:to-transparent after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-gradient-to-r after:from-transparent after:via-[rgba(133,156,224,0.15)] after:to-transparent"
+      className="py-16 md:py-24 bg-background relative z-0 overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-px before:bg-gradient-to-r before:from-transparent before:via-[rgba(133,156,224,0.15)] before:to-transparent after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-gradient-to-r after:from-transparent after:via-[rgba(133,156,224,0.15)] after:to-transparent"
     >
       <div 
-        className="absolute left-[-600px] w-[1200px] h-[1200px] rounded-full pointer-events-none z-0"
+        className="absolute left-[50%] md:left-[-600px] w-[1200px] h-[1200px] rounded-full pointer-events-none z-0"
         style={{
           top: "50%",
-          transform: gradientTransform,
-          background: "radial-gradient(circle, rgba(46, 56, 107, 0.18) 0%, transparent 70%)"
+          transform: isMobile ? "translate(-50%, -50%)" : gradientTransform,
+          background: "radial-gradient(circle, rgba(46, 56, 107, 0.25) 0%, transparent 70%)"
         }}
         aria-hidden="true"
       />
       <div 
-        className="absolute right-[-600px] w-[1200px] h-[1200px] rounded-full pointer-events-none z-0"
+        className="absolute w-[1200px] h-[1200px] rounded-full pointer-events-none z-0 right-[-600px] top-[-300px] md:top-[50%]"
         style={{
-          top: "50%",
-          transform: gradientTransform,
-          background: "radial-gradient(circle, rgba(46, 56, 107, 0.18) 0%, transparent 70%)"
+          transform: isMobile ? "none" : gradientTransform,
+          background: "radial-gradient(circle, rgba(46, 56, 107, 0.25) 0%, transparent 70%)"
+        }}
+        aria-hidden="true"
+      />
+      <div 
+        className="absolute right-[-600px] bottom-[-300px] w-[1200px] h-[1200px] rounded-full pointer-events-none z-0 md:hidden"
+        style={{
+          background: "radial-gradient(circle, rgba(46, 56, 107, 0.25) 0%, transparent 70%)"
         }}
         aria-hidden="true"
       />
       <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-[1fr_auto] gap-[124px]">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center gap-3">
+        <div className="grid gap-x-8 gap-y-6 md:grid-cols-[1fr_auto] md:gap-x-[124px] md:items-start">
+          <Reveal className="md:col-start-1 md:row-start-1">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
               <img src="/icons/User.svg" alt="" width={28} height={28} className="text-accent" />
               Sobre mim
             </h2>
+          </Reveal>
 
-            <p className="text-muted leading-relaxed mb-6">
-              Oi! Eu sou a Laísla Alles, formada em Design Gráfico, com 3 anos de experiência e apaixonada pelo meio audiovisual.
-            </p>
-            <p className="text-muted leading-relaxed mb-6">
-              Sou impulsionada pelo anseio de trazer vida a ideias através do movimento e transformá-las em narrativas visuais envolventes, que impactam, conectam e comunicam.
-            </p>
-            <p className="text-muted leading-relaxed mb-6">
-              Meu interesse pela área surgiu na adolescência, com a popularidade do YouTube, onde conheci mais sobre edição de vídeo e me encantei pelas possibilidades.
-            </p>
-            <p className="text-muted leading-relaxed mb-12">
-              Atualmente, busco aprofundar meus conhecimentos na área com foco na especialização em Motion Design.
-            </p>
-
-            <div className="flex gap-4">
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2 bg-cta text-white rounded-full hover:bg-cta/90 transition-colors flex items-center gap-2"
+          <Reveal className="md:col-start-2 md:row-start-1 md:row-span-2" delay={120}>
+            <div
+              className="w-full max-w-[405px] aspect-[405/435] md:aspect-[405/535]"
+              onMouseMove={(e) => {
+                if (isMobile || !photoEnabled.current) return;
+                const rect = e.currentTarget.getBoundingClientRect();
+                photoTarget.current.x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
+                photoTarget.current.y = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
+                if (photoRaf.current == null) {
+                  const loop = () => {
+                    const c = photoCurrent.current;
+                    const t = photoTarget.current;
+                    c.x += (t.x - c.x) * 0.04;
+                    c.y += (t.y - c.y) * 0.04;
+                    if (photoCardRef.current) {
+                      photoCardRef.current.style.transform = `translate3d(${c.x}px, ${c.y}px, 0)`;
+                    }
+                    if (Math.abs(c.x - t.x) < 0.1 && Math.abs(c.y - t.y) < 0.1) {
+                      photoRaf.current = null;
+                      return;
+                    }
+                    photoRaf.current = requestAnimationFrame(loop);
+                  };
+                  photoRaf.current = requestAnimationFrame(loop);
+                }
+              }}
+              onMouseLeave={() => {
+                if (isMobile || !photoEnabled.current) return;
+                photoTarget.current.x = 0;
+                photoTarget.current.y = 0;
+              }}
+            >
+              <div
+                ref={photoCardRef}
+                className="flex items-center justify-center w-full h-full bg-accent/10 rounded-[24px] overflow-hidden outline outline-[0.5px] outline-offset-[4px] outline-[rgba(133,156,224,0.4)] will-change-transform"
               >
-                <img src="/icons/Download.svg" alt="" width={18} height={18} />
-                Currículo
-              </a>
-              <a
-                href="#contato"
-                className="px-6 py-2 border border-border rounded-full text-foreground hover:bg-cta hover:text-white transition-colors flex items-center gap-2"
-              >
-                <img src="/icons/Chat.svg" alt="" width={18} height={18} />
-                Fale comigo!
-              </a>
+                <Image src="/assets/foto-perfil2.png" alt="Foto de perfil da Laísla Alles" width={640} height={800} quality={100} className="w-full h-full object-cover object-[50%_70%] md:object-center" />
+              </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="flex items-center justify-center w-[405px] h-[535px] bg-accent/10 rounded-2xl overflow-hidden shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
-            <Image src="/assets/Foto-perfil.jpg" alt="Foto de perfil da Laísla Alles" width={640} height={800} quality={100} className="w-full h-full object-cover" />
+          <div className="md:col-start-1 md:row-start-2 mt-4 md:mt-0">
+            <Reveal delay={80}>
+              <p className="text-muted leading-relaxed mb-6">
+                Oi! Eu sou a Laísla Alles, formada em Design Gráfico, com 3 anos de experiência e apaixonada pelo audiovisual.
+              </p>
+              <p className="text-muted leading-relaxed mb-6">
+                Nem sempre eu soube que queria trabalhar com design, mas sempre gostei de criar. Foi na adolescência, acompanhando a popularidade do YouTube e assistindo a horas e horas de vídeos que descobri a edição e encontrei um universo de possibilidades.
+              </p>
+              <p className="text-muted leading-relaxed mb-6">
+                Hoje, meu trabalho transita entre o design, o motion e o audiovisual, sempre buscando desenvolver projetos que despertem interesse, curiosidade e tragam aquele brilho nos olhos de quem vê.
+              </p>
+              <p className="text-muted leading-relaxed mb-12">
+                No momento, busco aprofundar meus conhecimentos na área com foco na especialização em Motion Design, mas sempre curiosa para explorar novas formas de colocar minha criatividade em prática.
+              </p>
+            </Reveal>
+
+            <Reveal delay={160}>
+              <div className="flex flex-col md:flex-row gap-4">
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 md:py-2 bg-cta text-white rounded-full hover:bg-cta/90 transition-colors flex items-center gap-2 md:w-auto justify-center"
+                >
+                  <img src="/icons/Download.svg" alt="" width={18} height={18} />
+                  Currículo
+                </a>
+                <a
+                  href="#contato"
+                  className="px-6 py-3 md:py-2 border border-border rounded-full text-foreground hover:bg-[#14171f] transition-colors flex items-center gap-2 md:w-auto justify-center"
+                >
+                  <img src="/icons/Chat.svg" alt="" width={18} height={18} />
+                  Fale comigo!
+                </a>
+              </div>
+            </Reveal>
           </div>
         </div>
 
-        <div className="mt-24">
-          <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
-            <img src="/icons/Pen-Tool.svg" alt="" width={22} height={22} className="text-accent" />
-            Ferramentas
-          </h3>
-          <div className="p-4 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
-            <div 
-              className="flex flex-wrap gap-10 items-center justify-center"
-              onMouseMove={(e) => {
-                const container = e.currentTarget;
-                const icons = container.querySelectorAll<HTMLElement>("[data-icon]");
-                let closest = 0;
-                let minDist = Infinity;
-                icons.forEach((icon) => {
-                  const rect = icon.getBoundingClientRect();
-                  const centerX = rect.left + rect.width / 2;
-                  const dist = Math.abs(e.clientX - centerX);
-                  if (dist < minDist) {
-                    minDist = dist;
-                    closest = parseInt(icon.dataset.icon || "0");
-                  }
-                });
-                setHoveredIndex(closest);
-              }}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              {ferramentas.map((ferramenta, index) => (
+        <div className="mt-14 md:mt-24">
+            <Reveal>
+              <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
+                <img src="/icons/Pen-Tool.svg" alt="" width={22} height={22} className="text-accent" />
+                Ferramentas
+              </h3>
+            </Reveal>
+            <Reveal delay={60}>
+              <div className="relative px-1 py-4 pb-3 md:p-4 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
                 <div 
-                  key={ferramenta.nome} 
-                  className="flex flex-col items-center gap-1"
-                  data-icon={index}
-                  style={{
-                    transform: `perspective(500px) scale(${getScale(index)})`,
-                    transition: "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-                    transformOrigin: "center bottom"
+                  ref={carouselRef}
+                  className="flex gap-3 px-4 md:px-0 overflow-x-auto snap-x snap-mandatory scroll-smooth md:flex-wrap md:gap-10 md:overflow-visible md:snap-none md:justify-center md:items-center tools-carousel"
+                  onMouseMove={(e) => {
+                    if (isMobile) return;
+                    const container = e.currentTarget;
+                    const icons = container.querySelectorAll<HTMLElement>("[data-icon]");
+                    let closest = 0;
+                    let minDist = Infinity;
+                    icons.forEach((icon) => {
+                      const rect = icon.getBoundingClientRect();
+                      const centerX = rect.left + rect.width / 2;
+                      const dist = Math.abs(e.clientX - centerX);
+                      if (dist < minDist) {
+                        minDist = dist;
+                        closest = parseInt(icon.dataset.icon || "0");
+                      }
+                    });
+                    setHoveredIndex(closest);
                   }}
+                  onMouseLeave={() => { if (isMobile) return; setHoveredIndex(null); }}
                 >
-                  <img src={ferramenta.icone} alt={ferramenta.nome} className="w-12 h-12 text-muted" />
-                  <span className="text-xs text-muted">{ferramenta.nome}</span>
+                  {ferramentas.map((ferramenta, index) => (
+                      <div 
+                        key={ferramenta.nome}
+                        className="flex flex-col items-center gap-1 min-w-[72px] snap-center md:min-w-0"
+                        data-icon={index}
+                        style={{
+                          transform: `scale(${isMobile ? 1 : getScale(index)})`,
+                          transition: isMobile ? "none" : "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                          transformOrigin: "center bottom"
+                        }}
+                      >
+                        <img src={ferramenta.icone} alt={ferramenta.nome} className="w-12 h-12 text-muted" />
+                        <span className="text-xs text-muted">{ferramenta.nome}</span>
+                      </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+                <div className="absolute inset-0 rounded-[24px] overflow-hidden pointer-events-none md:hidden">
+                  <div
+                    className="absolute left-0 top-0 bottom-0 w-32 z-10 transition-opacity duration-300"
+                    style={{ opacity: canScrollLeft ? 1 : 0, background: "linear-gradient(to right, rgba(24,27,40,1), transparent)" }}
+                  />
+                  <div
+                    className="absolute right-0 top-0 bottom-0 w-32 z-10 transition-opacity duration-300"
+                    style={{ opacity: canScrollRight ? 1 : 0, background: "linear-gradient(to left, rgba(24,27,40,1), transparent)" }}
+                  />
+                </div>
+                <button
+                  onClick={() => scrollToDirection("left")}
+                  className={`absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 flex items-center justify-center rounded-full bg-[rgba(133,156,224,0.2)] backdrop-blur-sm shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] transition-all duration-300 md:hidden ${
+                    canScrollLeft ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
+                  aria-label="Rolar para a esquerda"
+                >
+                  <img src="/icons/arrow-left-2.svg" alt="" width={14} height={14} />
+                </button>
+                <button
+                  onClick={() => scrollToDirection("right")}
+                  className={`absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 flex items-center justify-center rounded-full bg-[rgba(133,156,224,0.2)] backdrop-blur-sm shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] transition-all duration-300 md:hidden ${
+                    canScrollRight ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
+                  aria-label="Rolar para a direita"
+                >
+                  <img src="/icons/arrow-right-2.svg" alt="" width={14} height={14} />
+                </button>
+              </div>
+            </Reveal>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mt-8 items-stretch">
           <div className="flex flex-col h-full">
-            <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
-              <img src="/icons/Notebook.svg" alt="" width={22} height={22} className="text-accent" />
-              Competências
-            </h3>
-            <div className="py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
-              <ul>
-                {competencias.map((item) => (
-                  <li key={item} className="text-muted">
-                    <span className="mr-3">•</span>{item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Reveal>
+              <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
+                <img src="/icons/Notebook.svg" alt="" width={22} height={22} className="text-accent" />
+                Competências
+              </h3>
+            </Reveal>
+            <Reveal className="flex-1" delay={40}>
+              <div className="h-full py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
+                <Reveal group>
+                  <ul>
+                    {competencias.map((item, i) => (
+                      <li key={item} className="text-muted reveal-item" style={{ transitionDelay: `${i * 60}ms` }}>
+                        <span className="mr-3 text-[13px] font-extralight tabular-nums text-muted/40">{String(i + 1).padStart(2, "0")}.</span>{item}
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+              </div>
+            </Reveal>
           </div>
 
           <div className="flex flex-col h-full">
-            <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
-              <img src="/icons/Target.svg" alt="" width={22} height={22} className="text-accent" />
-              Habilidades pessoais
-            </h3>
-            <div className="py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)] flex-1">
-              <ul>
-                {habilidades.map((item) => (
-                  <li key={item} className="text-muted">
-                    <span className="mr-3">•</span>{item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Reveal>
+              <h3 className="text-[32px] font-semibold text-foreground mb-2 flex items-center gap-2">
+                <img src="/icons/Target.svg" alt="" width={22} height={22} className="text-accent" />
+                Habilidades pessoais
+              </h3>
+            </Reveal>
+            <Reveal className="flex-1" delay={40}>
+              <div className="h-full py-5 px-8 bg-[rgba(133,156,224,0.08)] rounded-[24px] shadow-[inset_0_0_0_0.5px_rgba(133,156,224,0.3)]">
+                <Reveal group>
+                  <ul>
+                    {habilidades.map((item, i) => (
+                      <li key={item} className="text-muted reveal-item" style={{ transitionDelay: `${i * 60}ms` }}>
+                        <span className="mr-3 text-[13px] font-extralight tabular-nums text-muted/40">{String(i + 1).padStart(2, "0")}.</span>{item}
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>
