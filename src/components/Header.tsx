@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type JSX } from "react";
 
 const NAV_ITEMS = [
   { href: "#hero", label: "" },
