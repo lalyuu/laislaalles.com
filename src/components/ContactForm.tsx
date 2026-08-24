@@ -8,6 +8,8 @@ export default function ContactForm() {
   const [state, action, pending] = useActionState(sendContact, null);
   const formRef = useRef<HTMLFormElement>(null);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   type PreviewStep = "disabled" | "loading" | "success" | "error" | null;
   const [previewStep, setPreviewStep] = useState<PreviewStep>("disabled");
 
@@ -30,6 +32,55 @@ export default function ContactForm() {
     }
   };
 
+  const inputTimers = useRef<Record<string, NodeJS.Timeout>>({});
+
+  const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = e.target.value.trim();
+    const isEmpty = !value;
+
+    if (inputTimers.current[e.target.name]) {
+      clearTimeout(inputTimers.current[e.target.name]);
+    }
+
+    if (isEmpty) {
+      setTouchedFields(prev => ({ ...prev, [e.target.name]: true }));
+      setFieldErrors(prev => ({ ...prev, [e.target.name]: "" }));
+    } else if (e.target.name === "email" && !isValidEmail(e.target.value)) {
+      setTouchedFields(prev => ({ ...prev, [e.target.name]: true }));
+      setFieldErrors(prev => ({ ...prev, [e.target.name]: "E-mail inválido" }));
+    } else {
+      setTouchedFields(prev => ({ ...prev, [e.target.name]: false }));
+      setFieldErrors(prev => ({ ...prev, [e.target.name]: "" }));
+    }
+  };
+
+  const handleInput = (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+    const name = target.name;
+    const value = target.value.trim();
+
+    if (inputTimers.current[name]) {
+      clearTimeout(inputTimers.current[name]);
+    }
+
+    if (!value) {
+      setTouchedFields(prev => ({ ...prev, [name]: true }));
+      setFieldErrors(prev => ({ ...prev, [name]: "" }));
+    } else {
+      setTouchedFields(prev => ({ ...prev, [name]: false }));
+      setFieldErrors(prev => ({ ...prev, [name]: "" }));
+
+      inputTimers.current[name] = setTimeout(() => {
+        if (name === "email" && !isValidEmail(target.value)) {
+          setTouchedFields(prev => ({ ...prev, [name]: true }));
+          setFieldErrors(prev => ({ ...prev, [name]: "E-mail inválido" }));
+        }
+      }, 1000);
+    }
+  };
+
   const isLoading = previewStep === "loading" || pending;
 
   const buttonLabel = isLoading
@@ -45,7 +96,7 @@ export default function ContactForm() {
     border outline-none
     focus-visible:ring-2 focus-visible:ring-[rgba(133,156,224,0.5)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#14171f]
     ${isFormDisabled && !isLoading && !isError
-      ? "border-transparent bg-[#191d2a] text-[#323850] opacity-60 cursor-not-allowed"
+      ? "border-transparent bg-[#191d2a] text-[#4a5270bf] opacity-[55%] cursor-not-allowed"
       : !isLoading && !isError
       ? "border-[rgba(133,156,224,0.25)] bg-[#191d2a] text-[#ebebeb] hover:bg-[#20263a] active:bg-[#1e2438] active:scale-[0.98]"
       : isLoading
@@ -67,41 +118,91 @@ export default function ContactForm() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex flex-col gap-1">
-          <label htmlFor="name" className="text-sm text-muted font-medium pl-4">Nome completo</label>
+          <label htmlFor="name" className="relative text-sm text-muted font-medium pl-4">
+            {touchedFields.name && (
+              <span className="absolute left-2 text-[#859ce0]">*</span>
+            )}
+            Nome completo
+            {touchedFields.name && (
+              <span className="text-[#859ce0]/50 text-xs font-light ml-2">
+                (Campo obrigatório)
+              </span>
+            )}
+          </label>
           <input
             name="name"
             placeholder="Seu nome completo"
             required
+            onBlur={handleBlur}
+            onInput={handleInput}
             className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow"
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="email" className="text-sm text-muted font-medium pl-4">E-mail</label>
+          <label htmlFor="email" className="relative text-sm text-muted font-medium pl-4">
+            {touchedFields.email && (
+              <span className="absolute left-2 text-[#859ce0]">*</span>
+            )}
+            E-mail
+            {touchedFields.email && (
+              <span className="text-[#859ce0]/50 text-xs font-light ml-2">
+                {fieldErrors.email === "E-mail inválido"
+                  ? "(E-mail inválido)"
+                  : "(Campo obrigatório)"}
+              </span>
+            )}
+          </label>
           <input
             name="email"
             type="email"
             placeholder="seu@email.com"
             required
+            onBlur={handleBlur}
+            onInput={handleInput}
             className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow"
           />
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        <label htmlFor="subject" className="text-sm text-muted font-medium pl-4">Assunto</label>
+        <label htmlFor="subject" className="relative text-sm text-muted font-medium pl-4">
+          {touchedFields.subject && (
+            <span className="absolute left-2 text-[#859ce0]">*</span>
+          )}
+          Assunto
+          {touchedFields.subject && (
+            <span className="text-[#859ce0]/50 text-xs font-light ml-2">
+              (Campo obrigatório)
+            </span>
+          )}
+        </label>
         <input
           name="subject"
           placeholder="Sobre o que gostaria de falar?"
           required
+          onBlur={handleBlur}
+          onInput={handleInput}
           className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow"
         />
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="message" className="text-sm text-muted font-medium pl-4">Mensagem</label>
+        <label htmlFor="message" className="relative text-sm text-muted font-medium pl-4">
+          {touchedFields.message && (
+            <span className="absolute left-2 text-[#859ce0]">*</span>
+          )}
+          Mensagem
+          {touchedFields.message && (
+            <span className="text-[#859ce0]/50 text-xs font-light ml-2">
+              (Campo obrigatório)
+            </span>
+          )}
+        </label>
         <textarea
           name="message"
           placeholder="Descreva sua dúvida ou proposta…"
           required
           rows={7}
+          onBlur={handleBlur}
+          onInput={handleInput}
           className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow resize-none"
         />
         <div className="text-right">
