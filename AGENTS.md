@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # Regras do Projeto
 - **NÃO** realizar nenhum commit ou push sem solicitação direta do usuário.
-- **SEMPRE** executar `npm run lint` e `npm run build` antes de cada commit, garantindo que não há erros de lint ou build.
+- Executar `npm run lint` e `npm run build` **apenas quando houver commit e push**, garantindo que não há erros antes de enviar ao repositório.
 
 # Portfolio - Laísla Alles
 
