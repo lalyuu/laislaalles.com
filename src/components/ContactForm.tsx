@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 import { sendContact } from "@/actions/send-contact";
 
 export default function ContactForm() {
@@ -10,21 +10,9 @@ export default function ContactForm() {
   const [isFormValid, setIsFormValid] = useState(false);
   const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  type PreviewStep = "disabled" | "loading" | "success" | "error" | null;
-  const [previewStep, setPreviewStep] = useState<PreviewStep>("disabled");
 
-  useEffect(() => {
-    if (previewStep === null) return;
-    const sequence: PreviewStep[] = ["disabled", "loading", "success", "error"];
-    const currentIndex = sequence.indexOf(previewStep);
-    const timer = setTimeout(() => {
-      setPreviewStep(currentIndex < sequence.length - 1 ? sequence[currentIndex + 1] : null);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [previewStep]);
-
-  const isError = !!state?.error || previewStep === "error";
-  const isSuccess = !!state?.success || previewStep === "success";
+  const isError = !!state?.error;
+  const isSuccess = !!state?.success;
 
   const handleFormInput = () => {
     if (formRef.current) {
@@ -81,7 +69,7 @@ export default function ContactForm() {
     }
   };
 
-  const isLoading = previewStep === "loading" || pending;
+  const isLoading = pending;
 
   const buttonLabel = isLoading
     ? "Enviando..."
@@ -89,7 +77,7 @@ export default function ContactForm() {
     ? "Erro ao enviar"
     : "Enviar mensagem";
 
-  const isFormDisabled = isLoading || isError || !isFormValid || previewStep === "disabled";
+  const isFormDisabled = isLoading || isError || !isFormValid;
 
   const buttonClasses = `
     group w-full px-6 py-3 rounded-[50px] text-sm flex items-center justify-center gap-2 transition-all
