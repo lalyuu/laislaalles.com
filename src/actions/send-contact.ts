@@ -14,6 +14,22 @@ export async function sendContact(prevState: unknown, formData: FormData) {
     return { error: "Todos os campos são obrigatórios." };
   }
 
+  if (name.length > 60) {
+    return { error: "Nome deve ter no máximo 60 caracteres." };
+  }
+
+  if (email.length > 254) {
+    return { error: "E-mail deve ter no máximo 254 caracteres." };
+  }
+
+  if (subject.length > 80) {
+    return { error: "Assunto deve ter no máximo 80 caracteres." };
+  }
+
+  if (message.length > 800) {
+    return { error: "Mensagem deve ter no máximo 800 caracteres." };
+  }
+
   if (!email.includes("@")) {
     return { error: "Email inválido." };
   }
