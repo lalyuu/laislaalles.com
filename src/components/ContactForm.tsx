@@ -3,13 +3,16 @@
 import Image from "next/image";
 import { useActionState, useRef, useState } from "react";
 import { sendContact } from "@/actions/send-contact";
+import TextareaScrollbar from "./TextareaScrollbar";
 
 export default function ContactForm() {
   const [state, action, pending] = useActionState(sendContact, null);
   const formRef = useRef<HTMLFormElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [messageLength, setMessageLength] = useState(0);
 
   const isError = !!state?.error;
   const isSuccess = !!state?.success;
@@ -48,6 +51,10 @@ export default function ContactForm() {
     const target = e.target as HTMLInputElement | HTMLTextAreaElement;
     const name = target.name;
     const value = target.value.trim();
+
+    if (name === "message") {
+      setMessageLength(target.value.length);
+    }
 
     if (inputTimers.current[name]) {
       clearTimeout(inputTimers.current[name]);
@@ -121,6 +128,7 @@ export default function ContactForm() {
             name="name"
             placeholder="Seu nome completo"
             required
+            maxLength={60}
             onBlur={handleBlur}
             onInput={handleInput}
             className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow"
@@ -145,6 +153,7 @@ export default function ContactForm() {
             type="email"
             placeholder="seu@email.com"
             required
+            maxLength={254}
             onBlur={handleBlur}
             onInput={handleInput}
             className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow"
@@ -167,36 +176,50 @@ export default function ContactForm() {
           name="subject"
           placeholder="Sobre o que gostaria de falar?"
           required
+          maxLength={80}
           onBlur={handleBlur}
           onInput={handleInput}
           className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow"
         />
       </div>
-      <div className="flex flex-col gap-2">
-        <label htmlFor="message" className="relative text-sm text-muted font-medium pl-4">
-          {touchedFields.message && (
-            <span className="absolute left-2 text-[#859ce0]">*</span>
-          )}
-          Mensagem
-          {touchedFields.message && (
-            <span className="text-[#859ce0]/50 text-xs font-light ml-2">
-              (Campo obrigatório)
-            </span>
-          )}
-        </label>
-        <textarea
-          name="message"
-          placeholder="Descreva sua dúvida ou proposta…"
-          required
-          rows={7}
-          onBlur={handleBlur}
-          onInput={handleInput}
-          className="w-full px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow resize-none"
-        />
-        <div className="text-right">
-          <p className="text-muted/60 text-xs font-light">
+      <div className="flex flex-col sm:gap-2 gap-1">
+        <label htmlFor="message" className="relative flex items-baseline justify-between text-sm text-muted font-medium pl-4">
+          <span>
+            {touchedFields.message && (
+              <span className="absolute left-2 text-[#859ce0]">*</span>
+            )}
+            Mensagem
+            {touchedFields.message && (
+              <span className="text-[#859ce0]/50 text-xs font-light ml-2">
+                (Campo obrigatório)
+              </span>
+            )}
+          </span>
+          <span className="hidden sm:inline text-muted/60 text-xs font-light">
             *Tempo de resposta aproximado: 24h
-          </p>
+          </span>
+        </label>
+        <div className="relative">
+          <textarea
+            ref={textareaRef}
+            name="message"
+            placeholder="Descreva sua dúvida ou proposta…"
+            required
+            rows={7}
+            maxLength={800}
+            onBlur={handleBlur}
+            onInput={handleInput}
+            className="w-full h-[192px] px-4 py-3 rounded-xl bg-[#191d2a] text-foreground placeholder:text-muted/40 placeholder:font-light placeholder:text-sm outline-none focus:shadow-[inset_0_0_0_1px_rgba(133,156,224,0.3)] transition-shadow resize-none overflow-y-auto"
+          />
+          <TextareaScrollbar textareaRef={textareaRef} />
+        </div>
+        <div className="flex items-center justify-between sm:justify-end -mt-1 sm:-mt-2">
+          <span className="sm:hidden text-muted/60 text-xs font-light">
+            *Tempo de resposta aproximado: 24h
+          </span>
+          <span className="text-xs font-light text-muted/60">
+            {messageLength} / 800
+          </span>
         </div>
       </div>
       {isSuccess ? (
