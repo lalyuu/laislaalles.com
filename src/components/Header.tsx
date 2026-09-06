@@ -139,7 +139,7 @@ export default function Header() {
               </div>
 
               <a
-                href="#"
+                href="/assets/Curriculo_Laisla_dos_Santos_Alles.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-cta text-white text-sm rounded-full hover:bg-cta/90 transition-colors"
@@ -213,7 +213,7 @@ export default function Header() {
             </div>
 
             <a
-              href="#"
+              href="/assets/Curriculo_Laisla_dos_Santos_Alles.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-cta text-white text-sm rounded-full hover:bg-cta/90 transition-colors"

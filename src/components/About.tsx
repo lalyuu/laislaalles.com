@@ -222,7 +222,7 @@ export default function About() {
             <Reveal delay={160}>
               <div className="flex flex-col md:flex-row gap-4">
                 <a
-                  href="#"
+                  href="/assets/Curriculo_Laisla_dos_Santos_Alles.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 md:py-2 bg-cta text-white rounded-full hover:bg-cta/90 transition-colors flex items-center gap-2 md:w-auto justify-center"
