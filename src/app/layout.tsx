@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Serif_Display } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import CustomScrollbar from "@/components/CustomScrollbar";
 import "./globals.css";
 
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${dmSans.variable} ${dmSerif.variable} antialiased`}>
       <body id="page-scroll-content" className="min-h-screen overflow-x-hidden">
         {children}
+        <Analytics />
         <CustomScrollbar />
       </body>
     </html>
